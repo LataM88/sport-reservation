@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Sport Reservation",
+      "Group": "Servers",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "sport_reservation",
+      "Username": "sport_user",
+      "SSLMode": "prefer"
+    }
+  }
+}

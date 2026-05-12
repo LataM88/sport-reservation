@@ -1,0 +1,131 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 80px;
+  background-color: var(--white);
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.leftImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.leftImage img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2);
+  transform: rotate(2deg);
+}
+
+@media (max-width: 991px) {
+  .container {
+    padding: 16px;
+  }
+  .leftImage {
+    display: none;
+  }
+}
+
+.titleColor {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 30px;
+}
+
+.labelBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.labelBox label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+}
+
+.labelBox input {
+  height: 50px;
+  border: 3px solid var(--primary);
+  border-radius: 25px;
+  padding: 0 20px;
+  font-size: 16px;
+  outline: none;
+  background-color: var(--white);
+  color: var(--black);
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s;
+}
+
+.labelBox input:focus {
+  box-shadow: 0 0 10px rgba(173, 255, 47, 0.5);
+  border-color: var(--primary);
+}
+
+.error {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.loginText {
+  font-size: 15px;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.loginLink {
+  color: var(--turquise-bg);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+.submitButton {
+  background-color: var(--primary);
+  color: var(--black);
+  border: none;
+  border-radius: 25px;
+  height: 55px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background-color: #9ce62a;
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  transform: none;
+}
