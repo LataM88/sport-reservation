@@ -8,6 +8,17 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ({ label, error, ...inputProps }, ref) => {
+    const isCheckbox = inputProps.type === 'checkbox';
+
+    if (isCheckbox) {
+      return (
+        <div className={styles.checkboxBox}>
+          <input ref={ref} {...inputProps} />
+          <label>{label}</label>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.labelBox}>
         <label>{label}</label>

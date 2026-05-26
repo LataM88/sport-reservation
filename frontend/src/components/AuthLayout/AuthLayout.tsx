@@ -12,6 +12,9 @@ interface AuthLayoutProps {
   switchText: string;
   switchLabel: string;
   switchTo: string;
+  forgotPasswordText?: string;
+  forgotPasswordLabel?: string;
+  forgotPasswordTo?: string;
   rootError?: string;
 }
 
@@ -22,6 +25,9 @@ export function AuthLayout({
   switchText,
   switchLabel,
   switchTo,
+  forgotPasswordText,
+  forgotPasswordLabel,
+  forgotPasswordTo,
   rootError,
 }: AuthLayoutProps) {
   return (
@@ -29,6 +35,7 @@ export function AuthLayout({
       <Row gutter={[80, 24]} align="middle" justify="center">
         <Col xl={12} lg={12} sm={24} xs={24}>
           <div className={styles.leftImage}>
+            <div className={styles.imgBg}></div>
             <img src={registerImage} alt="boisko do koszykówki" />
           </div>
         </Col>
@@ -39,6 +46,17 @@ export function AuthLayout({
           </Title>
           <div className={styles.formGroup}>
             {children}
+            {forgotPasswordText && (
+              <div className={styles.switchText} style={{ marginTop: '0' }}>
+                {forgotPasswordText}{' '}
+                <Link
+                  to={forgotPasswordTo || '#'}
+                  className={styles.switchLink}
+                >
+                  {forgotPasswordLabel}
+                </Link>
+              </div>
+            )}
             <div className={styles.switchText}>
               {switchText}{' '}
               <Link to={switchTo} className={styles.switchLink}>

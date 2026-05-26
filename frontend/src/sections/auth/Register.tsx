@@ -2,6 +2,7 @@ import type { RegisterRequest } from '../../types/types';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRegister } from '../../hooks/useRegister';
+import { useAuth } from '../../context/AuthContext';
 import { ApiError } from '../../api/apiClient';
 import AuthLayout from '../../components/AuthLayout/AuthLayout';
 import FormInput from '../../components/FormInput/FormInput';
@@ -10,6 +11,7 @@ import Button from '../../components/Button/Button';
 export function Register() {
   const navigate = useNavigate();
   const registerMutation = useRegister();
+  const { login } = useAuth();
 
   const {
     register,
@@ -24,8 +26,7 @@ export function Register() {
   const handleRegister = async (data: RegisterRequest) => {
     try {
       const result = await registerMutation.mutateAsync(data);
-      localStorage.setItem('token', result.token);
-      localStorage.setItem('user_id', result.user_id);
+      login(result.token, result.user_id, true);
       navigate('/');
     } catch (error) {
       const message =
@@ -141,7 +142,9 @@ export function Register() {
             fullWidth
             disabled={registerMutation.isPending}
           >
-            {registerMutation.isPending ? 'Rejestrowanie...' : 'Zarejestruj się'}
+            {registerMutation.isPending
+              ? 'Rejestrowanie...'
+              : 'Zarejestruj się'}
           </Button>
         </div>
       </form>

@@ -2,6 +2,7 @@ import type { LoginRequest } from '../../types/types';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../../hooks/useLogin';
+import { useAuth } from '../../context/AuthContext';
 import { ApiError } from '../../api/apiClient';
 import AuthLayout from '../../components/AuthLayout/AuthLayout';
 import FormInput from '../../components/FormInput/FormInput';
@@ -10,6 +11,7 @@ import Button from '../../components/Button/Button';
 export function Login() {
   const navigate = useNavigate();
   const loginMutation = useLogin();
+  const { login } = useAuth();
 
   const {
     register,
@@ -24,8 +26,7 @@ export function Login() {
   const handleLogin = async (data: LoginRequest) => {
     try {
       const result = await loginMutation.mutateAsync(data);
-      localStorage.setItem('token', result.token);
-      localStorage.setItem('user_id', result.user_id);
+      login(result.token, result.user_id, !!data.remember);
       navigate('/');
     } catch (error) {
       const message =
@@ -48,6 +49,9 @@ export function Login() {
       switchText="Nie masz konta?"
       switchLabel="Zarejestruj się"
       switchTo="/register"
+      forgotPasswordText="Nie pamiętasz hasła?"
+      forgotPasswordLabel="Zresetuj hasło"
+      forgotPasswordTo="/forgot-password"
       rootError={errors.root?.message}
     >
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
@@ -71,6 +75,11 @@ export function Login() {
             {...register('password', {
               required: 'Musisz podać hasło',
             })}
+          />
+          <FormInput
+            type="checkbox"
+            label="Zapamiętaj mnie"
+            {...register('remember')}
           />
           <Button
             type="submit"

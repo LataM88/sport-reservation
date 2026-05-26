@@ -66,7 +66,7 @@ export function Home() {
           </div>
         </Col>
       </Row>
-      <div className={styles.categoriesHeader}>
+      <div id="categories" className={styles.categoriesHeader}>
         <Title level={2}>Kategorie</Title>
         <Title level={5} className={styles.categoriesSubtitle}>
           To co potrzebujesz w jednym miejscu.
@@ -141,7 +141,7 @@ export function Home() {
           </div>
         </Col>
       </Row>
-      <div className={styles.categoriesHeader}>
+      <div id="how-it-works" className={styles.categoriesHeader}>
         <Title level={2}>Jak działa rezerwacja?</Title>
         <Title level={5} className={styles.categoriesSubtitle}>
           Trzy proste kroki

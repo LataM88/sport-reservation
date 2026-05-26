@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 
+from typing import Optional
 from sqlalchemy import String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -18,6 +19,10 @@ class User(Base):
     phone_number: Mapped[str] = mapped_column(String(20), nullable=False)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    reset_code: Mapped[Optional[str]] = mapped_column(String(6), nullable=True)
+    reset_code_expires_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )

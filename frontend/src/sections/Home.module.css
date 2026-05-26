@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 40px 0;
+  padding: 40px 80px;
   background-color: var(--white);
   min-height: 100vh;
   max-width: 1440px;
@@ -32,6 +32,7 @@
   font-size: 64px !important;
   margin-bottom: 16px !important;
   margin-top: 0 !important;
+  color: var(--black) !important;
 }
 
 .textBold {
@@ -76,15 +77,16 @@
 .startImages {
   position: relative;
   width: 515px;
-  height: 680px;
+  height: 630px;
 }
 
 .img1 {
   position: absolute;
+  margin-top: 16px;
   top: 0;
   left: 0;
   width: 515px;
-  height: 680px;
+  height: 630px;
   border-radius: 32px;
   background-color: var(--turquise-bg);
   transform: rotate(1deg);
@@ -92,10 +94,11 @@
 
 .img2 {
   position: absolute;
+  margin-top: 16px;
   top: 0;
   left: 0;
   width: 515px;
-  height: 680px;
+  height: 630px;
   transform: rotate(6deg);
 }
 
@@ -326,7 +329,7 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 16px 0;
+    padding: 16px 24px;
   }
   .startImages {
     display: none;

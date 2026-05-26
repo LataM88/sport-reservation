@@ -38,15 +38,11 @@
 #root {
   min-height: 100svh;
   display: flex;
-  margin-left: 80px;
-  margin-right: 80px;
   flex-direction: column;
 }
 
 @media (max-width: 768px) {
   #root {
-    margin-left: 16px;
-    margin-right: 16px;
   }
 }
 

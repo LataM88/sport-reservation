@@ -7,7 +7,7 @@
 .labelBox label {
   font-weight: 700;
   font-size: 14px;
-  color: #000;
+  color: var(--black);
 }
 
 .labelBox input {
@@ -35,4 +35,52 @@
   font-size: 13px;
   margin-left: 15px;
   font-weight: 600;
+}
+
+.checkboxBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.checkboxBox input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--primary);
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.checkboxBox input:checked {
+  background-color: var(--primary);
+}
+
+.checkboxBox input:checked::after {
+  content: '';
+  width: 5px;
+  height: 10px;
+  border: solid var(--black);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+.checkboxBox label {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--black);
+  user-select: none;
 }

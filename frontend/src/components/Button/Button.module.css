@@ -37,11 +37,13 @@
 
 .ghost {
   background-color: transparent;
-  color: var(--black);
+  color: var(--white);
+  border: 1px solid transparent;
 }
 
 .ghost:hover {
-  background-color: rgba(162, 255, 0, 0.1);
+  background-color: var(--white);
+  color: var(--black);
 }
 
 .sm {

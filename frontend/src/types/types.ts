@@ -9,4 +9,15 @@ export type RegisterRequest = {
 export type LoginRequest = {
   email: string;
   password: string;
+  remember?: boolean;
+};
+
+export type ForgotPasswordRequest = {
+  email: string;
+};
+
+export type ResetPasswordRequest = {
+  email: string;
+  code: string;
+  new_password: string;
 };
