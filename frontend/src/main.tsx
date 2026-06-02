@@ -9,6 +9,7 @@ import ForgotPassword from './sections/auth/ForgotPassword';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import RootLayout from './components/AuthLayout/RootLayout';
+import MainDashboard from './sections/client/MainDashboard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword />,
+      },
+      {
+        path: '/dashboard',
+        element: <MainDashboard />,
       },
     ],
   },

@@ -27,7 +27,7 @@ export function Login() {
     try {
       const result = await loginMutation.mutateAsync(data);
       login(result.token, result.user_id, !!data.remember);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       const message =
         error instanceof ApiError

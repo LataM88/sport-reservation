@@ -104,17 +104,19 @@
   display: none;
   flex-direction: column;
   gap: 4px;
-  padding: 16px 24px;
-  border-top: 1px solid rgba(70, 70, 70, 0.4);
-  background-color: rgba(1, 1, 1, 0.95);
+  padding: 0;
+  border-top: none;
+  background-color: transparent;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  transition: max-height 0.3s ease, padding 0.3s ease, background-color 0.3s ease;
 }
 
 .drawerOpen {
   max-height: 400px;
   padding: 16px 24px 24px;
+  border-top: 1px solid rgba(70, 70, 70, 0.4);
+  background-color: rgba(1, 1, 1, 0.95);
 }
 
 .drawerLink {

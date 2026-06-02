@@ -5,6 +5,7 @@
   --black: #010101;
   --turquise-bg: #125050;
   --lighting: #00e5ff;
+  --gray-300: #ececec;
 
   --font-lexend: 'Lexend', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -26,7 +27,6 @@
   --mono: ui-monospace, Consolas, monospace;
 
   font: 400 20px var(--sans);
-  color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
