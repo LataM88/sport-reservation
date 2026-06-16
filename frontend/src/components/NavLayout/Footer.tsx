@@ -1,9 +1,17 @@
 import styles from './Footer.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Footer = () => {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  const hasSidebar =
+    isAuthenticated && location.pathname.startsWith('/dashboard');
+
   return (
-    <footer className={styles.footer}>
+    <footer
+      className={`${styles.footer} ${hasSidebar ? styles.footerWithSidebar : ''}`}
+    >
       <div className={styles.inner}>
         <div className={styles.top}>
           <div className={styles.brand}>
@@ -20,20 +28,36 @@ const Footer = () => {
           <div className={styles.cols}>
             <div className={styles.col}>
               <span className={styles.colTitle}>Platforma</span>
-              <Link to="/" className={styles.colLink}>Strona główna</Link>
-              <Link to="/#categories" className={styles.colLink}>Kategorie</Link>
-              <Link to="/#how-it-works" className={styles.colLink}>Jak to działa?</Link>
+              <Link to="/" className={styles.colLink}>
+                Strona główna
+              </Link>
+              <Link to="/#categories" className={styles.colLink}>
+                Kategorie
+              </Link>
+              <Link to="/#how-it-works" className={styles.colLink}>
+                Jak to działa?
+              </Link>
             </div>
             <div className={styles.col}>
               <span className={styles.colTitle}>Konto</span>
-              <Link to="/login" className={styles.colLink}>Zaloguj się</Link>
-              <Link to="/register" className={styles.colLink}>Zarejestruj się</Link>
-              <Link to="/forgot-password" className={styles.colLink}>Reset hasła</Link>
+              <Link to="/login" className={styles.colLink}>
+                Zaloguj się
+              </Link>
+              <Link to="/register" className={styles.colLink}>
+                Zarejestruj się
+              </Link>
+              <Link to="/forgot-password" className={styles.colLink}>
+                Reset hasła
+              </Link>
             </div>
             <div className={styles.col}>
               <span className={styles.colTitle}>Kontakt</span>
-              <a href="mailto:kontakt@playflex.pl" className={styles.colLink}>kontakt@playflex.pl</a>
-              <a href="tel:+48000000000" className={styles.colLink}>+48 000 000 000</a>
+              <a href="mailto:kontakt@playflex.pl" className={styles.colLink}>
+                kontakt@playflex.pl
+              </a>
+              <a href="tel:+48000000000" className={styles.colLink}>
+                +48 000 000 000
+              </a>
             </div>
           </div>
         </div>
@@ -42,7 +66,8 @@ const Footer = () => {
 
         <div className={styles.bottom}>
           <span className={styles.copy}>
-            &copy; {new Date().getFullYear()} PlayFlex. Wszystkie prawa zastrzeżone.
+            &copy; {new Date().getFullYear()} PlayFlex. Wszystkie prawa
+            zastrzeżone.
           </span>
         </div>
       </div>

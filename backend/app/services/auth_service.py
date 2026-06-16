@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security import hash_password, verify_password, create_access_token
 from app.models.user import User
-from app.schemas.user import RegisterRequest, LoginRequest, ForgotPasswordRequest, ResetPasswordRequest
+from app.schemas.user import RegisterRequest, LoginRequest, ForgotPasswordRequest, ResetPasswordRequest, UserResponse
 from app.services.email_service import send_reset_code_email
 
 
@@ -97,4 +97,13 @@ def reset_password(db: Session, data: ResetPasswordRequest) -> dict:
     db.commit()
     
     return {"message": "Hasło zostało pomyślnie zmienione"}
-    
+
+
+def get_user(db: Session, user_id: str) -> User:
+    found_user = db.query(User).filter(User.id == user_id).first()
+    if not found_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Użytkownik nie istnieje",
+        )
+    return found_user

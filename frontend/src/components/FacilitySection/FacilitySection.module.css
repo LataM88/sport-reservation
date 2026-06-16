@@ -1,146 +1,156 @@
 /* nagłówek sekcji */
 
 .showAll {
-    margin-top: 32px;
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .showAllButton {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--black);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: transform 0.2s ease, color 0.2s ease;
-    text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+  text-decoration: none;
 }
 
 .showAllButton:hover {
-    transform: scale(1.07);
-    text-decoration: underline;
+  transform: scale(1.07);
+  text-decoration: underline;
 }
 
 /* desktop — grid widoczny, mobile scroll ukryty */
 
 .desktopGrid {
-    display: flex !important;
+  display: flex !important;
 }
 
 .mobileScroll {
-    display: none;
+  display: none;
 }
 
 .showAllButtonDesktop {
-    display: flex;
+  display: flex;
 }
 
-/* karta obiektu */
+.facilityCardWrapper {
+  cursor: pointer;
+  height: 100%;
+}
 
 .facilityCard {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    min-height: 220px;
-    background-color: var(--gray-300);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 220px;
+  background-color: var(--gray-300);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
 }
 
 .facilityCardOverlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
-    border-radius: 16px;
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.2) 60%,
+    transparent 100%
+  );
+  border-radius: 16px;
+  z-index: 1;
 }
 
 .facilityCardDetails {
-    position: relative;
-    z-index: 2;
-    padding: 20px 24px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  position: relative;
+  z-index: 2;
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .facilityCardTitle {
-    color: #ffffff !important;
-    margin: 0 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
 }
 
 /* etykiety */
 
 .amenities {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .amentitiesInfo {
-    background-color: rgba(255, 255, 255, 0.3);
-    padding: 4px 10px;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .amentitiesInfo p {
-    color: #ffffff !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
 
 /* mobile — poziomy scroll, grid ukryty */
 
 @media (max-width: 767px) {
-    .desktopGrid {
-        display: none !important;
-    }
+  .desktopGrid {
+    display: none !important;
+  }
 
-    .showAllButtonDesktop {
-        display: none;
-    }
+  .showAllButtonDesktop {
+    display: none;
+  }
 
-    .mobileScroll {
-        display: flex;
-        flex-direction: row;
-        gap: 16px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        padding-bottom: 8px;
-    }
+  .mobileScroll {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
 
-    .mobileScroll::-webkit-scrollbar {
-        display: none;
-    }
+  .mobileScroll::-webkit-scrollbar {
+    display: none;
+  }
 
-    .mobileCard {
-        flex: 0 0 80vw;
-        max-width: 320px;
-        scroll-snap-align: start;
-        min-height: 220px;
-    }
+  .mobileCard {
+    flex: 0 0 80vw;
+    max-width: 320px;
+    scroll-snap-align: start;
+    min-height: 220px;
+  }
 
-    .mobileCard .facilityCard {
-        height: 220px;
-    }
+  .mobileCard .facilityCard {
+    height: 220px;
+  }
 }
