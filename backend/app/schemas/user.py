@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from pydantic import BaseModel, EmailStr, ConfigDict, Field
 
 
 class RegisterRequest(BaseModel):
@@ -30,3 +31,13 @@ class ResetPasswordRequest(BaseModel):
     email: EmailStr
     code: str
     new_password: str
+
+class UserResponse(BaseModel):
+    id: str
+    name: str
+    lastName: str = Field(alias="lastName", validation_alias="last_name")
+    phoneNumber: str = Field(alias="phoneNumber", validation_alias="phone_number")
+    email: EmailStr
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)

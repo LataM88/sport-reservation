@@ -10,6 +10,7 @@ const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const hasSidebar = isAuthenticated && location.pathname.startsWith('/dashboard');
 
   const handleLogout = () => {
     logout();
@@ -42,7 +43,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} ${hasSidebar ? styles.navbarWithSidebar : ''}`}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo} onClick={closeMenu}>
           Play<span className={styles.logoAccent}>Flex</span>

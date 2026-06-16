@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.footerWithSidebar {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+}
+
 .inner {
   max-width: 1440px;
   margin: 0 auto;
@@ -94,6 +99,13 @@
   font-family: var(--font-inter);
   font-size: 13px;
   color: var(--white);
+}
+
+@media (max-width: 900px) {
+  .footerWithSidebar {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {

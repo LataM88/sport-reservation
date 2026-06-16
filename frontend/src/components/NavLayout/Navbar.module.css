@@ -11,6 +11,10 @@
   border-bottom: 1px solid rgba(70, 70, 70, 0.5);
 }
 
+.navbarWithSidebar {
+  left: 260px;
+}
+
 .inner {
   display: flex;
   align-items: center;

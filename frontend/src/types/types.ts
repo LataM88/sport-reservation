@@ -22,11 +22,22 @@ export type ResetPasswordRequest = {
   new_password: string;
 };
 
+export type User = {
+  id: string;
+  name: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  created_at: string;
+};
+
 export type Facility = {
   id: string;
   name: string;
   category: string;
   description?: string;
+  slot_duration_minutes?: number;
+  buffer_time_minutes?: number;
   image_url?: string;
   opening_time?: string;
   closing_time?: string;

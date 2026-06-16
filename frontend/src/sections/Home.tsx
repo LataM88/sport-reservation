@@ -1,6 +1,7 @@
 import styles from './Home.module.css';
 import { Row, Col, Typography } from 'antd';
 import imageHero from '../images/landing/landing_hero.png';
+import { Link } from 'react-router-dom';
 import {
   ThunderboltFilled,
   UserOutlined,
@@ -40,7 +41,9 @@ export function Home() {
               </Paragraph>
             </div>
             <div className={styles.startInfoButton}>
-              <button className={styles.button}>Przeglądaj jako gość</button>
+              <Link to="/dashboard">
+                <button className={styles.button}>Przeglądaj jako gość</button>
+              </Link>
             </div>
           </div>
         </Col>
