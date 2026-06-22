@@ -44,3 +44,23 @@ export type Facility = {
   base_price?: number;
   is_active: boolean;
 };
+
+export type Reservations = {
+  id: string;
+  user_id: string;
+  facility_id: string;
+  reservation_date: string;
+  start_time: string;
+  end_time: string;
+  total_price: number;
+  status: string;
+  created_at: string;
+};
+
+export type ReservationCreate = {
+  facility_id: string;
+  reservation_date: string;
+  start_time: string;
+  end_time: string;
+  total_price: number;
+};

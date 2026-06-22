@@ -6,6 +6,13 @@
   margin-left: 260px;
 }
 
+@media (max-width: 900px) {
+  .withSidebar {
+    margin-left: 0;
+    padding-bottom: 64px;
+  }
+}
+
 .container {
   padding: 40px 80px;
   max-width: 1440px;

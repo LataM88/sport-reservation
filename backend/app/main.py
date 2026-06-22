@@ -9,6 +9,7 @@ import app.models
 
 from app.routers.auth import router as auth_router
 from app.routers.facilities import router as facilities_router
+from app.routers.reservations import router as reservations_router
 
 
 @asynccontextmanager
@@ -35,6 +36,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(facilities_router)
+app.include_router(reservations_router)
 
 
 @app.get("/")
