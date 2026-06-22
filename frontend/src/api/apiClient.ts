@@ -16,20 +16,30 @@ export async function apiClient<T>(
   endpoint: string,
   options?: RequestInit,
 ): Promise<T> {
+  const { headers: customHeaders, ...restOptions } = options || {};
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...restOptions,
     headers: {
       'Content-Type': 'application/json',
-      ...options?.headers,
+      ...customHeaders,
     },
-    ...options,
   });
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => ({}));
-    throw new ApiError(
-      response.status,
-      errorBody.detail || 'Wystąpił nieoczekiwany błąd',
-    );
+    let detail = 'Wystąpił nieoczekiwany błąd';
+
+    if (typeof errorBody.detail === 'string') {
+      detail = errorBody.detail;
+    } else if (Array.isArray(errorBody.detail) && errorBody.detail.length > 0) {
+      detail = errorBody.detail.map((e: { msg?: string; loc?: string[] }) => {
+        const field = e.loc?.slice(-1)[0] || '';
+        return field ? `${field}: ${e.msg}` : (e.msg || '');
+      }).join('; ');
+    }
+
+    throw new ApiError(response.status, detail);
   }
 
   return response.json();

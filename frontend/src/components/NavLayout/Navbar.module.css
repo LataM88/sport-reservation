@@ -154,6 +154,10 @@
 }
 
 @media (max-width: 900px) {
+  .navbarWithSidebar {
+    left: 0;
+  }
+
   .inner {
     padding: 0 24px;
     max-width: 100%;
