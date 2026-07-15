@@ -22,7 +22,7 @@ const CATEGORIES: Category[] = [
   { label: 'Wszystkie', icon: FaThLarge, key: null },
   { label: 'Hale sportowe', icon: MdSportsBasketball, key: 'hala' },
   { label: 'Stadiony', icon: FaFutbol, key: 'stadiony' },
-  { label: 'Squash/Tenis/Badminton', icon: FaRunning, key: 'ogolne' },
+  { label: 'Rakietowe', icon: FaRunning, key: 'ogolne' },
   { label: 'Siłownie i sauny', icon: FaDumbbell, key: 'fizyczne' },
   { label: 'Baseny', icon: FaSwimmingPool, key: 'rekreacja' },
 ];
@@ -30,14 +30,16 @@ const CATEGORIES: Category[] = [
 const SECTIONS = [
   { title: 'Hale sportowe', key: 'hala' },
   { title: 'Stadiony', key: 'stadiony' },
-  { title: 'Tenis/Squash/Badminton', key: 'ogolne' },
+  { title: 'Sporty rakietowe', key: 'ogolne' },
   { title: 'Siłownie i sauny', key: 'fizyczne' },
   { title: 'Baseny', key: 'rekreacja' },
 ];
 
 const MainDashboard = () => {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
-  const [selectedFacilityId, setSelectedFacilityId] = useState<string | null>(null);
+  const [selectedFacilityId, setSelectedFacilityId] = useState<string | null>(
+    null
+  );
   const { data: facilities, isLoading, isError } = useFacilities();
   const { isAuthenticated } = useAuth();
 

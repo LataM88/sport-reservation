@@ -23,6 +23,20 @@ class User(Base):
     reset_code_expires_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    email_notifications: Mapped[bool] = mapped_column(default=False, nullable=False)
+    pending_email: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    pending_phone_number: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    pending_hashed_password: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    change_confirmation_code: Mapped[Optional[str]] = mapped_column(String(6), nullable=True)
+    change_code_expires_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    avatar_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    is_active: Mapped[bool] = mapped_column(default=False, nullable=False)
+    verification_code: Mapped[Optional[str]] = mapped_column(String(6), nullable=True)
+    verification_code_expires_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )

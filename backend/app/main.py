@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from app.db.base import Base
 from app.db.session import engine
@@ -10,13 +11,31 @@ import app.models
 from app.routers.auth import router as auth_router
 from app.routers.facilities import router as facilities_router
 from app.routers.reservations import router as reservations_router
+from app.routers.users import router as users_router
+from app.services.scheduler import send_upcoming_reservation_reminders
+
+scheduler = BackgroundScheduler()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create all tables on startup
     Base.metadata.create_all(bind=engine)
+
+    # Start reminder scheduler (every 10 minutes)
+    scheduler.add_job(
+        send_upcoming_reservation_reminders,
+        "interval",
+        minutes=10,
+        id="reservation_reminders",
+        replace_existing=True,
+    )
+    scheduler.start()
+
     yield
+
+    # Shutdown scheduler on app stop
+    scheduler.shutdown(wait=False)
 
 
 app = FastAPI(
@@ -37,6 +56,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(facilities_router)
 app.include_router(reservations_router)
+app.include_router(users_router)
 
 
 @app.get("/")

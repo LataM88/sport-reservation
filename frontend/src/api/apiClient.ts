@@ -18,10 +18,17 @@ export async function apiClient<T>(
 ): Promise<T> {
   const { headers: customHeaders, ...restOptions } = options || {};
 
+  const isFormData = restOptions.body instanceof FormData;
+  
+  const headers: Record<string, string> = {};
+  if (!isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...restOptions,
     headers: {
-      'Content-Type': 'application/json',
+      ...headers,
       ...customHeaders,
     },
   });

@@ -31,6 +31,7 @@ class Reservation(Base):
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pending"
     )
+    reminder_sent: Mapped[bool] = mapped_column(default=False, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow, nullable=False
     )

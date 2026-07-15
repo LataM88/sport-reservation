@@ -10,7 +10,11 @@ const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const hasSidebar = isAuthenticated && location.pathname.startsWith('/dashboard');
+  const hasSidebar =
+    isAuthenticated &&
+    (location.pathname.startsWith('/dashboard') ||
+      location.pathname.startsWith('/my-bookings') ||
+      location.pathname.startsWith('/profile'));
 
   const handleLogout = () => {
     logout();
@@ -28,7 +32,8 @@ const Navbar = () => {
       const el = document.getElementById(sectionId);
       if (el) {
         const navbarHeight = 68;
-        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight - 16;
+        const top =
+          el.getBoundingClientRect().top + window.scrollY - navbarHeight - 16;
         window.scrollTo({ top, behavior: 'smooth' });
         window.history.pushState({}, '', `/#${sectionId}`);
       }
@@ -43,23 +48,41 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`${styles.navbar} ${hasSidebar ? styles.navbarWithSidebar : ''}`}>
+    <nav
+      className={`${styles.navbar} ${hasSidebar ? styles.navbarWithSidebar : ''}`}
+    >
       <div className={styles.inner}>
         <Link to="/" className={styles.logo} onClick={closeMenu}>
           Play<span className={styles.logoAccent}>Flex</span>
         </Link>
 
         <div className={styles.links}>
-          <Link to="/" className={styles.link} onClick={closeMenu}>Główna</Link>
-          <a href="#categories" className={styles.link} onClick={scrollToSection('categories')}>Kategorie</a>
-          <a href="#how-it-works" className={styles.link} onClick={scrollToSection('how-it-works')}>Jak to działa?</a>
+          <Link to="/" className={styles.link} onClick={closeMenu}>
+            Główna
+          </Link>
+          <a
+            href="#categories"
+            className={styles.link}
+            onClick={scrollToSection('categories')}
+          >
+            Kategorie
+          </a>
+          <a
+            href="#how-it-works"
+            className={styles.link}
+            onClick={scrollToSection('how-it-works')}
+          >
+            Jak to działa?
+          </a>
         </div>
 
         <div className={styles.actions}>
           {isAuthenticated ? (
             <>
-              <Link to="/reservations">
-                <Button variant="ghost" size="sm">Rezerwuj</Button>
+              <Link to="/dashboard">
+                <Button variant="ghost" size="sm">
+                  Rezerwuj
+                </Button>
               </Link>
               <Button variant="primary" size="sm" onClick={handleLogout}>
                 Wyloguj
@@ -68,10 +91,14 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login">
-                <Button variant="ghost" size="sm">Zaloguj</Button>
+                <Button variant="ghost" size="sm">
+                  Zaloguj
+                </Button>
               </Link>
               <Link to="/register">
-                <Button variant="primary" size="sm">Zarejestruj</Button>
+                <Button variant="primary" size="sm">
+                  Zarejestruj
+                </Button>
               </Link>
             </>
           )}
@@ -88,27 +115,52 @@ const Navbar = () => {
       </div>
 
       <div className={`${styles.drawer} ${isOpen ? styles.drawerOpen : ''}`}>
-        <Link to="/" className={styles.drawerLink} onClick={closeMenu}>Główna</Link>
-        <a href="#categories" className={styles.drawerLink} onClick={scrollToSection('categories')}>Kategorie</a>
-        <a href="#how-it-works" className={styles.drawerLink} onClick={scrollToSection('how-it-works')}>Jak to działa?</a>
+        <Link to="/" className={styles.drawerLink} onClick={closeMenu}>
+          Główna
+        </Link>
+        <a
+          href="#categories"
+          className={styles.drawerLink}
+          onClick={scrollToSection('categories')}
+        >
+          Kategorie
+        </a>
+        <a
+          href="#how-it-works"
+          className={styles.drawerLink}
+          onClick={scrollToSection('how-it-works')}
+        >
+          Jak to działa?
+        </a>
 
         <div className={styles.drawerActions}>
           {isAuthenticated ? (
             <>
               <Link to="/reservations" onClick={closeMenu}>
-                <Button variant="ghost" size="sm" fullWidth>Rezerwuj</Button>
+                <Button variant="ghost" size="sm" fullWidth>
+                  Rezerwuj
+                </Button>
               </Link>
-              <Button variant="primary" size="sm" fullWidth onClick={handleLogout}>
+              <Button
+                variant="primary"
+                size="sm"
+                fullWidth
+                onClick={handleLogout}
+              >
                 Wyloguj
               </Button>
             </>
           ) : (
             <>
               <Link to="/login" onClick={closeMenu}>
-                <Button variant="ghost" size="sm" fullWidth>Zaloguj</Button>
+                <Button variant="ghost" size="sm" fullWidth>
+                  Zaloguj
+                </Button>
               </Link>
               <Link to="/register" onClick={closeMenu}>
-                <Button variant="primary" size="sm" fullWidth>Zarejestruj</Button>
+                <Button variant="primary" size="sm" fullWidth>
+                  Zarejestruj
+                </Button>
               </Link>
             </>
           )}

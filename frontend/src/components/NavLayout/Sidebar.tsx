@@ -7,6 +7,7 @@ import {
   UserOutlined,
   RocketOutlined,
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -35,30 +36,36 @@ const Sidebar = () => {
         Witaj {user.name}!
       </Title>
       <div className={styles.layout}>
-        <div className={styles.content}>
-          <PicLeftOutlined className={styles.icon} />
-          <Title className={styles.text} level={5}>
-            Główna strona
-          </Title>
-        </div>
+        <Link to="/dashboard">
+          <div className={styles.content}>
+            <PicLeftOutlined className={styles.icon} />
+            <Title className={styles.text} level={5}>
+              Główna strona
+            </Title>
+          </div>
+        </Link>
         <div className={styles.content}>
           <RocketOutlined className={styles.icon} />
           <Title className={styles.text} level={5}>
             Rezerwacja z AI
           </Title>
         </div>
-        <div className={styles.content}>
-          <SnippetsOutlined className={styles.icon} />
-          <Title className={styles.text} level={5}>
-            Moje rezerwacje
-          </Title>
-        </div>
-        <div className={styles.content}>
-          <UserOutlined className={styles.icon} />
-          <Title className={styles.text} level={5}>
-            Mój profil
-          </Title>
-        </div>
+        <Link to="/my-bookings">
+          <div className={styles.content}>
+            <SnippetsOutlined className={styles.icon} />
+            <Title className={styles.text} level={5}>
+              Moje rezerwacje
+            </Title>
+          </div>
+        </Link>
+        <Link to="/profile">
+          <div className={styles.content}>
+            <UserOutlined className={styles.icon} />
+            <Title className={styles.text} level={5}>
+              Mój profil
+            </Title>
+          </div>
+        </Link>
       </div>
     </div>
   );

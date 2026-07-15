@@ -6,7 +6,9 @@ const Footer = () => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
   const hasSidebar =
-    isAuthenticated && location.pathname.startsWith('/dashboard');
+    (isAuthenticated && location.pathname.startsWith('/dashboard')) ||
+    location.pathname.startsWith('/profile') ||
+    location.pathname.startsWith('/my-bookings');
 
   return (
     <footer

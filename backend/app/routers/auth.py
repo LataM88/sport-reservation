@@ -6,7 +6,17 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db.session import get_db
 from app.models.user import User
-from app.schemas.user import RegisterRequest, LoginRequest, TokenResponse, ForgotPasswordRequest, MessageResponse, ResetPasswordRequest, UserResponse
+from app.schemas.user import (
+    RegisterRequest,
+    LoginRequest,
+    TokenResponse,
+    ForgotPasswordRequest,
+    MessageResponse,
+    ResetPasswordRequest,
+    UserResponse,
+    VerifyEmailRequest,
+    ResendCodeRequest,
+)
 from app.services import auth_service
 
 settings = get_settings()
@@ -39,9 +49,19 @@ def get_current_user(
     return auth_service.get_user(db=db, user_id=user_id)
 
 
-@router.post("/register", response_model=TokenResponse)
+@router.post("/register", response_model=MessageResponse)
 def register(user: RegisterRequest, db: Session = Depends(get_db)):
     return auth_service.register_user(db=db, user=user)
+
+
+@router.post("/verify-email", response_model=TokenResponse)
+def verify_email(data: VerifyEmailRequest, db: Session = Depends(get_db)):
+    return auth_service.verify_email(db=db, data=data)
+
+
+@router.post("/resend-code", response_model=MessageResponse)
+def resend_code(data: ResendCodeRequest, db: Session = Depends(get_db)):
+    return auth_service.resend_activation_code(db=db, data=data)
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -57,6 +77,7 @@ def forgot_password(user: ForgotPasswordRequest, db: Session = Depends(get_db)):
 @router.post("/reset-password", response_model=MessageResponse)
 def reset_password(data: ResetPasswordRequest, db: Session = Depends(get_db)):
     return auth_service.reset_password(db=db, data=data)
+
 
 @router.get("/get-user", response_model=UserResponse)
 def get_user(current_user: User = Depends(get_current_user)):
