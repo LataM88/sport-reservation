@@ -8,6 +8,8 @@ import AuthLayout from '../../components/AuthLayout/AuthLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import Button from '../../components/Button/Button';
 
+import { message } from 'antd';
+
 export function Login() {
   const navigate = useNavigate();
   const loginMutation = useLogin();
@@ -29,11 +31,16 @@ export function Login() {
       login(result.token, result.user_id, !!data.remember);
       navigate('/dashboard');
     } catch (error) {
-      const message =
+      if (error instanceof ApiError && error.status === 403) {
+        message.warning('Konto jest nieaktywne. Przekierowujemy do weryfikacji e-mail.');
+        navigate('/register', { state: { email: data.email } });
+        return;
+      }
+      const messageText =
         error instanceof ApiError
           ? error.detail
           : 'Wystąpił nieoczekiwany błąd';
-      setError('root', { message });
+      setError('root', { message: messageText });
     }
   };
 
@@ -52,7 +59,6 @@ export function Login() {
       forgotPasswordText="Nie pamiętasz hasła?"
       forgotPasswordLabel="Zresetuj hasło"
       forgotPasswordTo="/forgot-password"
-      rootError={errors.root?.message}
     >
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -76,6 +82,11 @@ export function Login() {
               required: 'Musisz podać hasło',
             })}
           />
+          {errors.root && (
+            <span style={{ color: 'red', fontSize: '13px', marginTop: '-12px' }}>
+              {errors.root.message}
+            </span>
+          )}
           <FormInput
             type="checkbox"
             label="Zapamiętaj mnie"

@@ -10,6 +10,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import RootLayout from './components/AuthLayout/RootLayout';
 import MainDashboard from './sections/client/MainDashboard';
+import MyBookings from './sections/client/MyBookings';
+import Profile from './sections/client/Profile/Profile';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <MainDashboard />,
+      },
+      {
+        path: '/my-bookings',
+        element: <MyBookings />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
     ],
   },

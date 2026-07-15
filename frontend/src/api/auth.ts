@@ -11,8 +11,22 @@ export interface TokenResponse {
   user_id: string;
 }
 
-export function registerUser(data: RegisterRequest): Promise<TokenResponse> {
-  return apiClient<TokenResponse>('/api/auth/register', {
+export function registerUser(data: RegisterRequest): Promise<{ message: string }> {
+  return apiClient<{ message: string }>('/api/auth/register', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export function verifyEmail(data: { email: string; code: string }): Promise<TokenResponse> {
+  return apiClient<TokenResponse>('/api/auth/verify-email', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export function resendActivationCode(data: { email: string }): Promise<{ message: string }> {
+  return apiClient<{ message: string }>('/api/auth/resend-code', {
     method: 'POST',
     body: JSON.stringify(data),
   });

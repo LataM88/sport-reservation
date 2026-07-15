@@ -28,6 +28,8 @@ export type User = {
   lastName: string;
   phoneNumber: string;
   email: string;
+  email_notifications: boolean;
+  avatar_url?: string;
   created_at: string;
 };
 
@@ -63,4 +65,23 @@ export type ReservationCreate = {
   start_time: string;
   end_time: string;
   total_price: number;
+};
+
+export type ProfileDataChangeRequest = {
+  phoneNumber: string;
+  email: string;
+};
+
+export type PasswordChangeRequest = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+export type ConfirmChangeRequest = {
+  code: string;
+};
+
+export type NotificationPreferences = {
+  email_notifications: boolean;
 };

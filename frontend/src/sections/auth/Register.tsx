@@ -1,17 +1,27 @@
+import { useState } from 'react';
 import type { RegisterRequest } from '../../types/types';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { useRegister } from '../../hooks/useRegister';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useRegister, useVerifyEmail, useResendActivationCode } from '../../hooks/useRegister';
 import { useAuth } from '../../context/AuthContext';
 import { ApiError } from '../../api/apiClient';
 import AuthLayout from '../../components/AuthLayout/AuthLayout';
 import FormInput from '../../components/FormInput/FormInput';
 import Button from '../../components/Button/Button';
+import { message } from 'antd';
 
 export function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
   const registerMutation = useRegister();
+  const verifyEmailMutation = useVerifyEmail();
+  const resendMutation = useResendActivationCode();
   const { login } = useAuth();
+
+  const [registeredEmail, setRegisteredEmail] = useState<string | null>(
+    location.state?.email || null
+  );
+  const [verificationCode, setVerificationCode] = useState('');
 
   const {
     register,
@@ -25,15 +35,56 @@ export function Register() {
 
   const handleRegister = async (data: RegisterRequest) => {
     try {
-      const result = await registerMutation.mutateAsync(data);
-      login(result.token, result.user_id, true);
-      navigate('/');
+      await registerMutation.mutateAsync(data);
+      message.success('Konto zostało utworzone. Wysłaliśmy kod aktywacyjny.');
+      setRegisteredEmail(data.email);
     } catch (error) {
-      const message =
+      const msg =
         error instanceof ApiError
           ? error.detail
           : 'Wystąpił nieoczekiwany błąd';
-      setError('root', { message });
+      setError('root', { message: msg });
+    }
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!registeredEmail) return;
+
+    if (verificationCode.length !== 6) {
+      message.error('Kod musi mieć dokładnie 6 cyfr');
+      return;
+    }
+
+    try {
+      const result = await verifyEmailMutation.mutateAsync({
+        email: registeredEmail,
+        code: verificationCode,
+      });
+      message.success('Konto zostało pomyślnie aktywowane!');
+      login(result.token, result.user_id, true);
+      navigate('/');
+    } catch (error) {
+      const msg =
+        error instanceof ApiError
+          ? error.detail
+          : 'Błąd podczas aktywacji konta';
+      setError('root', { message: msg });
+      message.error(msg);
+    }
+  };
+
+  const handleResend = async () => {
+    if (!registeredEmail) return;
+    try {
+      await resendMutation.mutateAsync({ email: registeredEmail });
+      message.success('Nowy kod aktywacyjny został wysłany na Twój e-mail');
+    } catch (error) {
+      const msg =
+        error instanceof ApiError
+          ? error.detail
+          : 'Nie udało się wysłać nowego kodu';
+      message.error(msg);
     }
   };
 
@@ -41,6 +92,74 @@ export function Register() {
     e.target.value =
       e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
   };
+
+  if (registeredEmail) {
+    return (
+      <AuthLayout
+        titleHighlight="Potwierdź e-mail"
+        titleRest={<>i aktywuj swoje konto</>}
+        switchText="Posiadasz konto?"
+        switchLabel="Zaloguj się"
+        switchTo="/login"
+      >
+        <form noValidate onSubmit={handleVerify}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+            <span style={{ textAlign: 'center', color: '#555', fontSize: '14px', lineHeight: '1.5' }}>
+              Wysłaliśmy 6-cyfrowy kod aktywacyjny na adres: <br />
+              <strong>{registeredEmail}</strong>. Wprowadź go poniżej, aby aktywować konto.
+            </span>
+            <input
+              type="text"
+              maxLength={6}
+              placeholder="000000"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))}
+              style={{
+                width: '220px',
+                height: '56px',
+                textAlign: 'center',
+                fontSize: '32px',
+                fontFamily: 'Courier New, Consolas, monospace',
+                fontWeight: 700,
+                letterSpacing: '10px',
+                border: '2px solid #ddd',
+                borderRadius: '12px',
+                outline: 'none',
+                background: '#fafafa',
+                color: '#000',
+                boxSizing: 'border-box',
+                paddingLeft: '10px'
+              }}
+              autoFocus
+            />
+            {errors.root && (
+              <span style={{ color: 'red', fontSize: '13px', textAlign: 'center' }}>
+                {errors.root.message}
+              </span>
+            )}
+            <Button
+              type="submit"
+              size="lg"
+              fullWidth
+              disabled={verifyEmailMutation.isPending}
+            >
+              {verifyEmailMutation.isPending ? 'Weryfikacja...' : 'Aktywuj konto'}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="md"
+              fullWidth
+              onClick={handleResend}
+              disabled={resendMutation.isPending}
+            >
+              {resendMutation.isPending ? 'Wysyłanie...' : 'Wyślij kod ponownie'}
+            </Button>
+          </div>
+        </form>
+      </AuthLayout>
+    );
+  }
 
   return (
     <AuthLayout
@@ -53,7 +172,6 @@ export function Register() {
       switchText="Posiadasz konto?"
       switchLabel="Zaloguj się"
       switchTo="/login"
-      rootError={errors.root?.message}
     >
       <form noValidate onSubmit={handleSubmit(handleRegister)}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -136,6 +254,11 @@ export function Register() {
               },
             })}
           />
+          {errors.root && (
+            <span style={{ color: 'red', fontSize: '13px', marginTop: '-12px' }}>
+              {errors.root.message}
+            </span>
+          )}
           <Button
             type="submit"
             size="lg"

@@ -1,0 +1,372 @@
+.wrapper {
+  min-height: calc(100vh - 68px);
+  background: var(--bg);
+}
+
+.withSidebar {
+  margin-left: 260px;
+}
+
+.container {
+  padding: 40px 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dataCard,
+.changePassword,
+.notifiactions {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.25s ease;
+}
+
+.dataCard:hover,
+.changePassword:hover,
+.notifiactions:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+
+.changeData {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.changeData h3 {
+  margin: 0 !important;
+}
+
+.changeDataDetails {
+  margin-top: 4px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputsName {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputGroup input {
+  width: 100%;
+}
+
+.inputsEmail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputGroupOther {
+  display: flex;
+  flex-direction: column;
+}
+
+.dataCard label,
+.changePassword label:not(.switch) {
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.dataCard input,
+.changePassword input:not([type='checkbox']) {
+  height: 40px;
+  border: none;
+  border-bottom: 1.5px solid #ddd;
+  border-radius: 0;
+  padding: 8px 2px;
+  font-size: 15px;
+  font-family: var(--sans);
+  color: var(--black);
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.dataCard input:focus,
+.changePassword input:not([type='checkbox']):focus {
+  border-bottom-color: var(--primary);
+}
+
+.dataCard input::placeholder,
+.changePassword input::placeholder {
+  color: #333;
+  font-weight: 500;
+}
+
+.profileAppearance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.25s ease;
+}
+
+.profileAppearance:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+
+.profilePhoto {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  color: #aaa;
+  border: 3.5px solid var(--primary);
+  box-shadow: 0 0 0 4px rgba(162, 255, 0, 0.18);
+  margin-bottom: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.profilePhoto:hover {
+  box-shadow: 0 0 0 7px rgba(162, 255, 0, 0.22);
+}
+
+.profileInfo {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.profileInfo h3 {
+  margin: 0 !important;
+  font-size: 22px;
+}
+
+.profileInfo p,
+.profileInfo .ant-typography {
+  color: #777;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.changePassword {
+  margin-top: 24px;
+}
+
+.changePasswordTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 24px;
+}
+
+.changePasswordTitle h3 {
+  margin: 0 !important;
+}
+
+.oldPassword {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.oldPassword input {
+  max-width: 340px;
+}
+
+.newPassword {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.changePassword button {
+  margin-top: 12px;
+  background-color: var(--black) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.changePassword button:hover {
+  background-color: #222 !important;
+  transform: translateY(-2px);
+}
+
+.notifiactions {
+  margin-top: -64px;
+}
+
+.notifiactions > h4 {
+  margin-bottom: 20px !important;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notifiactionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.notifiactionsGroup > span {
+  font-size: 22px;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.aboutNotification {
+  flex: 1;
+}
+
+.aboutNotification h4 {
+  margin: 0 !important;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.aboutNotification p {
+  font-size: 13px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: background-color 0.3s ease;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.switch input:checked + .slider {
+  background-color: var(--primary);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+@media (max-width: 768px) {
+  .withSidebar {
+    margin-left: 0;
+  }
+
+  .container {
+    padding: 24px 16px;
+  }
+
+  .inputsName {
+    flex-direction: column;
+  }
+
+  .newPassword {
+    flex-direction: column;
+  }
+
+  .newPassword label,
+  .newPassword input {
+    width: 100%;
+  }
+}
+
+/* Confirmation Modal */
+.confirmModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 0;
+}
+
+.confirmModal p {
+  text-align: center;
+  color: #555;
+  margin: 0;
+}
+
+.codeInput {
+  width: 200px;
+  height: 56px;
+  text-align: center;
+  font-size: 32px;
+  font-family: 'Courier New', Consolas, monospace;
+  font-weight: 700;
+  letter-spacing: 10px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fafafa;
+  color: var(--black);
+}
+
+.codeInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(162, 255, 0, 0.18);
+}
+
+.codeInput::placeholder {
+  color: #ccc;
+  letter-spacing: 10px;
+}
+

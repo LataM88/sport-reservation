@@ -14,6 +14,25 @@ export async function createReservation(
   });
 }
 
+export async function getMyReservations(): Promise<Reservations[]> {
+  return apiClient<Reservations[]>('/api/reservations/my', {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+}
+
+export async function cancelReservation(
+  reservationId: string,
+): Promise<Reservations> {
+  return apiClient<Reservations>(`/api/reservations/${reservationId}/cancel`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+}
+
 export async function getFacilityReservations(
   facilityId: string,
   date: string,
