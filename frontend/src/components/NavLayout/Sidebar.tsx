@@ -44,12 +44,14 @@ const Sidebar = () => {
             </Title>
           </div>
         </Link>
-        <div className={styles.content}>
-          <RocketOutlined className={styles.icon} />
-          <Title className={styles.text} level={5}>
-            Rezerwacja z AI
-          </Title>
-        </div>
+        <Link to="/ai-reservations">
+          <div className={styles.content}>
+            <RocketOutlined className={styles.icon} />
+            <Title className={styles.text} level={5}>
+              Rezerwacja z AI
+            </Title>
+          </div>
+        </Link>
         <Link to="/my-bookings">
           <div className={styles.content}>
             <SnippetsOutlined className={styles.icon} />

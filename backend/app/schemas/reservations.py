@@ -11,7 +11,7 @@ class ReservationCreate(BaseModel):
     reservation_date: date
     start_time: time
     end_time: time
-    total_price: Decimal
+    total_price: Optional[float] = None
 
 
 class ReservationResponse(BaseModel):
@@ -21,7 +21,7 @@ class ReservationResponse(BaseModel):
     reservation_date: date
     start_time: time
     end_time: time
-    total_price: Decimal
+    total_price: Optional[float] = None
     status: str
     created_at: datetime
 

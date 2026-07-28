@@ -10,6 +10,7 @@ import app.models
 
 from app.routers.auth import router as auth_router
 from app.routers.facilities import router as facilities_router
+from app.routers.recommendations import router as recommendations_router
 from app.routers.reservations import router as reservations_router
 from app.routers.users import router as users_router
 from app.services.scheduler import send_upcoming_reservation_reminders
@@ -55,6 +56,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(facilities_router)
+app.include_router(recommendations_router)
 app.include_router(reservations_router)
 app.include_router(users_router)
 

@@ -14,7 +14,8 @@ const Navbar = () => {
     isAuthenticated &&
     (location.pathname.startsWith('/dashboard') ||
       location.pathname.startsWith('/my-bookings') ||
-      location.pathname.startsWith('/profile'));
+      location.pathname.startsWith('/profile') ||
+      location.pathname.startsWith('/ai-reservations'));
 
   const handleLogout = () => {
     logout();
@@ -79,9 +80,9 @@ const Navbar = () => {
         <div className={styles.actions}>
           {isAuthenticated ? (
             <>
-              <Link to="/dashboard">
+              <Link to="/ai-reservations">
                 <Button variant="ghost" size="sm">
-                  Rezerwuj
+                  Rezerwuj z AI
                 </Button>
               </Link>
               <Button variant="primary" size="sm" onClick={handleLogout}>

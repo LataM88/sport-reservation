@@ -25,6 +25,9 @@ export function Home() {
             <Title level={5} className={styles.startInfoText}>
               DOSTĘP DO OBIEKTÓW PREMIUM
             </Title>
+            <Title level={5} className={styles.startInfoTextColor}>
+              Powered by AI
+            </Title>
             <div className={styles.startInfoDescription}>
               <Title level={1} className={styles.mainTitle}>
                 TWOJE HOBBY
@@ -35,6 +38,9 @@ export function Home() {
                 </span>
               </Title>
               <Paragraph className={styles.textSmall}>
+                Dla zalogowanych użytkowników rekomendacje i rezerwacje{' '}
+                <span className={styles.textSmallColor}>AI </span>
+                <br />
                 Zarezerwuj interesujący Cię obiekt w mgnieniu oka, <br />
                 Przeglądaj jako gość i sprawdź aktualną{' '}
                 <span className={styles.textSmallColor}>oferte.</span>

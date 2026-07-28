@@ -15,6 +15,7 @@ import FacilitySection from '../../components/FacilitySection/FacilitySection';
 import Sidebar from '../../components/NavLayout/Sidebar';
 import { useAuth } from '../../context/AuthContext';
 import FacilityModal from '../../components/modal/FacilityModal';
+import AiRecommended from '../../components/Ai/AiRecommended/AiRecommended';
 
 const { Title, Paragraph } = Typography;
 
@@ -53,11 +54,18 @@ const MainDashboard = () => {
     >
       {isAuthenticated && <Sidebar />}
       <div className={styles.container}>
-        <Title level={2}>Wybierz miejsce do gry</Title>
+        <Title style={{ color: 'var(--turquise-bg)' }} level={2}>
+          Wybierz miejsce do gry
+        </Title>
+
+        {isAuthenticated && (
+          <AiRecommended onReserveClick={(id) => setSelectedFacilityId(id)} />
+        )}
         <Title className={styles.subtitle} level={4}>
           Znajdź najlepsze obiekty sportowe w Twojej okolicy i zarezerwuj
           termin.
         </Title>
+
         <div className={styles.categoriesScrollWrapper}>
           <Row gutter={[12, 12]} justify="space-between">
             {CATEGORIES.map((cat) => {

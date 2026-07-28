@@ -10,7 +10,6 @@ from app.schemas.reservations import ReservationCreate
 
 
 def create_reservation(db: Session, user_id: str, data: ReservationCreate) -> Reservation:
-    # Sprawdź czy termin nie jest w przeszłości
     today = date.today()
     if data.reservation_date < today:
         raise HTTPException(
@@ -26,7 +25,6 @@ def create_reservation(db: Session, user_id: str, data: ReservationCreate) -> Re
                 detail="Nie można rezerwować godzin, które już minęły",
             )
 
-    # Sprawdź czy obiekt istnieje i jest aktywny
     facility = db.query(Facility).filter(
         Facility.id == str(data.facility_id),
         Facility.is_active == True,
@@ -38,7 +36,6 @@ def create_reservation(db: Session, user_id: str, data: ReservationCreate) -> Re
             detail="Obiekt nie istnieje lub jest nieaktywny",
         )
 
-    # Sprawdź czy slot nie jest już zajęty
     existing = db.query(Reservation).filter(
         Reservation.facility_id == str(data.facility_id),
         Reservation.reservation_date == data.reservation_date,
@@ -52,13 +49,24 @@ def create_reservation(db: Session, user_id: str, data: ReservationCreate) -> Re
             detail="Ten termin jest już zarezerwowany",
         )
 
+    # 1. Łączymy datę z czasem, aby móc je łatwo odjąć
+    start_dt = datetime.combine(data.reservation_date, data.start_time)
+    end_dt = datetime.combine(data.reservation_date, data.end_time)
+    
+    # 2. Obliczamy różnicę w godzinach
+    duration_hours = (end_dt - start_dt).total_seconds() / 3600.0
+    
+    # 3. Wyliczamy ostateczną kwotę (ZAMIEŃ 'price_per_hour' na odpowiednie pole ze swojego modelu Facility)
+    calculated_price = float(facility.base_price) * duration_hours
+
+    # Tworzenie rezerwacji
     reservation = Reservation(
         user_id=user_id,
         facility_id=str(data.facility_id),
         reservation_date=data.reservation_date,
         start_time=data.start_time,
         end_time=data.end_time,
-        total_price=data.total_price,
+        total_price=calculated_price,  # wartosc wyliczona z bazy a nie przez ai
         status="pending",
     )
 
@@ -110,6 +118,50 @@ def cancel_reservation(db: Session, reservation_id: str, user_id: str) -> Reserv
     db.refresh(reservation)
 
     return reservation
+
+
+def get_free_slots(db: Session, facility_id: str, target_date: date) -> list[str]:
+ 
+    from datetime import timedelta, datetime
+
+    facility = db.query(Facility).filter(
+        Facility.id == facility_id,
+        Facility.is_active == True,
+    ).first()
+
+    if not facility:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Obiekt nie istnieje lub jest nieaktywny",
+        )
+
+    if not facility.opening_time or not facility.closing_time:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Obiekt nie ma zdefiniowanych godzin otwarcia",
+        )
+
+    slot_minutes = facility.slot_duration_minutes or 60
+
+    all_slots: list[str] = []
+    current = datetime.combine(target_date, facility.opening_time)
+    closing = datetime.combine(target_date, facility.closing_time)
+
+    while current + timedelta(minutes=slot_minutes) <= closing:
+        all_slots.append(current.strftime("%H:%M"))
+        current += timedelta(minutes=slot_minutes)
+
+    booked = db.query(Reservation.start_time).filter(
+        Reservation.facility_id == facility_id,
+        Reservation.reservation_date == target_date,
+        Reservation.status != "cancelled",
+    ).all()
+
+    booked_times = {r.start_time.strftime("%H:%M") for r in booked}
+
+    free_slots = [slot for slot in all_slots if slot not in booked_times]
+
+    return free_slots
 
 
 def get_facility_reservations(db: Session, facility_id: str, reservation_date=None) -> list[Reservation]:
