@@ -12,6 +12,8 @@ import RootLayout from './components/AuthLayout/RootLayout';
 import MainDashboard from './sections/client/MainDashboard';
 import MyBookings from './sections/client/MyBookings';
 import Profile from './sections/client/Profile/Profile';
+import AiReservations from './sections/client/Ai/AiReservations';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,11 +50,27 @@ const router = createBrowserRouter([
       },
       {
         path: '/my-bookings',
-        element: <MyBookings />,
+        element: (
+          <ProtectedRoute>
+            <MyBookings />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/profile',
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/ai-reservations',
+        element: (
+          <ProtectedRoute>
+            <AiReservations />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

@@ -8,7 +8,8 @@ const Footer = () => {
   const hasSidebar =
     (isAuthenticated && location.pathname.startsWith('/dashboard')) ||
     location.pathname.startsWith('/profile') ||
-    location.pathname.startsWith('/my-bookings');
+    location.pathname.startsWith('/my-bookings') ||
+    location.pathname.startsWith('/ai-reservations');
 
   return (
     <footer

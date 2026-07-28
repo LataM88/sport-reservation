@@ -85,3 +85,21 @@ export type ConfirmChangeRequest = {
 export type NotificationPreferences = {
   email_notifications: boolean;
 };
+
+// typy do rezerwacji z Ai
+
+export type AiMessage = {
+  id: number;
+  role: 'user' | 'ai';
+  text: string;
+  time: string;
+};
+
+export type RecommendedFacility = {
+  id: string;
+  name: string;
+  category: string;
+  location?: string;
+  image_url?: string;
+  base_price?: number;
+};

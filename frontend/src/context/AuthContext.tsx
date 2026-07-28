@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import { getToken, getUserId, clearAuth } from '../api/authUtils';
 
@@ -13,17 +13,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedToken = getToken();
-    const savedUserId = getUserId();
-    if (savedToken && savedUserId) {
-      setToken(savedToken);
-      setUserId(savedUserId);
-    }
-  }, []);
+  const [token, setToken] = useState<string | null>(getToken());
+  const [userId, setUserId] = useState<string | null>(getUserId());
 
   const login = (newToken: string, newUserId: string, remember: boolean) => {
     const storage = remember ? localStorage : sessionStorage;

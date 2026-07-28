@@ -60,6 +60,23 @@ services:
       - /app/node_modules
     restart: unless-stopped
 
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n_ai
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      #- NODE_ENV=production
+      - N8N_BANNED_INTERCEPTIONS=
+      - WEBHOOK_URL=http://localhost:5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+
 volumes:
   pgdata:
   pgadmin_data:
+  n8n_data:

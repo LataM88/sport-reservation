@@ -28,6 +28,20 @@
   text-align: center;
 }
 
+.startInfoTextColor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--lighting);
+  color: var(--black) !important;
+  padding: 8px 24px;
+  border-radius: 64px;
+  margin-bottom: 32px !important;
+  box-sizing: border-box;
+  text-align: center;
+  margin-left: 8px;
+}
+
 .mainTitle {
   font-size: 64px !important;
   margin-bottom: 16px !important;

@@ -1,0 +1,150 @@
+.heroSection {
+  background: var(--black);
+  border-radius: 24px;
+  padding: 48px 48px 40px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 99px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-family: var(--heading);
+}
+
+.heroTitle {
+  color: var(--white) !important;
+  margin: 0 0 16px 0 !important;
+  font-size: 44px !important;
+  line-height: 1.15 !important;
+}
+
+.heroSubtitle {
+  color: rgba(255, 255, 255, 0.65) !important;
+  font-size: 16px !important;
+  margin-bottom: 28px !important;
+  max-width: 420px;
+}
+
+.heroInputWrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 6px 6px 6px 16px;
+  gap: 12px;
+  max-width: 480px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+
+.heroInputWrapper:focus-within {
+  border-color: var(--primary);
+}
+
+.heroInputIcon {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.heroInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--white);
+}
+
+.heroInput::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.heroButton {
+  background: var(--primary);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.heroButton:hover {
+  opacity: 0.85;
+}
+
+.suggestedRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.suggestedLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.suggestedChip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  padding: 5px 14px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--primary);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.suggestedChip:hover {
+  background: rgba(162, 255, 0, 0.12);
+}
+
+.heroImageCol {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 380px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+  opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+  .heroSection {
+    padding: 28px 24px;
+    border-radius: 16px;
+  }
+
+  .heroTitle {
+    font-size: 30px !important;
+  }
+
+  .heroInputWrapper {
+    max-width: 100%;
+  }
+}

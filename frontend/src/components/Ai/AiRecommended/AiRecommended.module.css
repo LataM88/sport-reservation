@@ -1,0 +1,171 @@
+.section {
+  margin-bottom: 48px;
+}
+
+.header {
+  margin-bottom: 24px !important;
+}
+
+.title {
+  margin: 0 !important;
+  font-size: 24px !important;
+}
+
+.subtitle {
+  color: var(--grey) !important;
+  margin: 4px 0 0 0 !important;
+  font-size: 14px !important;
+}
+
+.seeAllButton {
+  background: none;
+  border: none;
+  color: var(--grey);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.seeAllButton:hover {
+  color: var(--black);
+}
+
+.card {
+  border: 1.5px solid var(--gray-300);
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+  background: #fff;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.cardImage {
+  height: 160px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.matchBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--primary);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 4px 10px;
+  font-family: var(--heading);
+}
+
+.priceBadge {
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-family: var(--heading);
+}
+
+.cardBody {
+  padding: 16px;
+}
+
+.cardTitleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-family: var(--heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.favIcon {
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--grey);
+  transition: color 0.2s;
+}
+
+.favIcon:hover {
+  color: var(--black);
+}
+
+.location {
+  font-size: 13px;
+  color: var(--grey);
+  margin: 0 0 10px 0;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.tag {
+  background: var(--gray-300);
+  color: var(--grey);
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 3px 8px;
+  letter-spacing: 0.5px;
+}
+
+.errorMsg {
+  color: #cf1322;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.buttonOutline {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 10px;
+  border: none;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.buttonOutline:hover {
+  background: #333;
+}
