@@ -41,12 +41,27 @@ const FacilityModal = ({ id, onClose }: FacilityModalProps) => {
 
   const reservedSlots = useMemo(() => {
     if (!existingReservations) return new Set<string>();
-    return new Set(
-      existingReservations.map((r) => {
-        const parts = r.start_time.split(':');
-        return `${parts[0]}:${parts[1]}`;
-      }),
-    );
+    const blocked = new Set<string>();
+
+    for (const r of existingReservations) {
+      const startParts = r.start_time.split(':').map(Number);
+      const endParts = r.end_time.split(':').map(Number);
+      const startMin = startParts[0] * 60 + startParts[1];
+      const endMin = endParts[0] * 60 + endParts[1];
+
+      // Oznacz każdy pełnogodzinny slot, który koliduje z tą rezerwacją
+      for (let m = 0; m < 24 * 60; m += 60) {
+        const slotEnd = m + 60;
+        // Slot [m, slotEnd) koliduje z rezerwacją [startMin, endMin)
+        if (m < endMin && slotEnd > startMin) {
+          const hh = Math.floor(m / 60).toString().padStart(2, '0');
+          const mm = (m % 60).toString().padStart(2, '0');
+          blocked.add(`${hh}:${mm}`);
+        }
+      }
+    }
+
+    return blocked;
   }, [existingReservations]);
 
   useEffect(() => {

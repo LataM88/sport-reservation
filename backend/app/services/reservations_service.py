@@ -39,14 +39,15 @@ def create_reservation(db: Session, user_id: str, data: ReservationCreate) -> Re
     existing = db.query(Reservation).filter(
         Reservation.facility_id == str(data.facility_id),
         Reservation.reservation_date == data.reservation_date,
-        Reservation.start_time == data.start_time,
+        Reservation.start_time < data.end_time,
+        Reservation.end_time > data.start_time,
         Reservation.status != "cancelled",
     ).first()
 
     if existing:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Ten termin jest już zarezerwowany",
+            detail="Ten termin koliduje z istniejącą rezerwacją",
         )
 
     # 1. Łączymy datę z czasem, aby móc je łatwo odjąć
@@ -56,7 +57,7 @@ def create_reservation(db: Session, user_id: str, data: ReservationCreate) -> Re
     # 2. Obliczamy różnicę w godzinach
     duration_hours = (end_dt - start_dt).total_seconds() / 3600.0
     
-    # 3. Wyliczamy ostateczną kwotę (ZAMIEŃ 'price_per_hour' na odpowiednie pole ze swojego modelu Facility)
+    # 3. Wyliczamy ostateczną kwotę 
     calculated_price = float(facility.base_price) * duration_hours
 
     # Tworzenie rezerwacji
@@ -161,15 +162,25 @@ def get_free_slots(db: Session, facility_id: str, target_date: date) -> list[str
         all_slots.append(current.strftime("%H:%M"))
         current += timedelta(minutes=slot_minutes)
 
-    booked = db.query(Reservation.start_time).filter(
+    booked = db.query(Reservation.start_time, Reservation.end_time).filter(
         Reservation.facility_id == facility_id,
         Reservation.reservation_date == target_date,
         Reservation.status != "cancelled",
     ).all()
 
-    booked_times = {r.start_time.strftime("%H:%M") for r in booked}
+    free_slots = []
+    for slot in all_slots:
+        slot_start = datetime.strptime(slot, "%H:%M").time()
+        slot_end_dt = datetime.combine(target_date, slot_start) + timedelta(minutes=slot_minutes)
+        slot_end = slot_end_dt.time()
 
-    free_slots = [slot for slot in all_slots if slot not in booked_times]
+        # Sprawdzamy czy slot koliduje z jakąkolwiek istniejącą rezerwacją
+        overlaps = any(
+            slot_start < r.end_time and slot_end > r.start_time
+            for r in booked
+        )
+        if not overlaps:
+            free_slots.append(slot)
 
     return free_slots
 

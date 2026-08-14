@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Typography, Spin, message } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { useAdminFacility, useCreateManualReservation } from '../../../hooks/useAdmin';
+import { useFacilityReservations } from '../../../hooks/useReservations';
 import Button from '../../../components/Button/Button';
 import styles from './AdminManualReservation.module.css';
 
@@ -22,6 +23,34 @@ export function AdminManualReservation() {
   const [duration, setDuration] = useState<number>(60);
   const [guestName, setGuestName] = useState<string>('');
   const [guestPhone, setGuestPhone] = useState<string>('');
+
+  const { data: existingReservations } = useFacilityReservations(
+    facility?.id ?? '',
+    date,
+  );
+
+  const reservedSlots = useMemo(() => {
+    if (!existingReservations) return new Set<string>();
+    const blocked = new Set<string>();
+
+    for (const r of existingReservations) {
+      const startParts = r.start_time.split(':').map(Number);
+      const endParts = r.end_time.split(':').map(Number);
+      const startMin = startParts[0] * 60 + startParts[1];
+      const endMin = endParts[0] * 60 + endParts[1];
+
+      for (let m = 0; m < 24 * 60; m += 60) {
+        const slotEnd = m + 60;
+        if (m < endMin && slotEnd > startMin) {
+          const hh = Math.floor(m / 60).toString().padStart(2, '0');
+          const mm = (m % 60).toString().padStart(2, '0');
+          blocked.add(`${hh}:${mm}`);
+        }
+      }
+    }
+
+    return blocked;
+  }, [existingReservations]);
 
   const calculateEndTime = (start: string, dur: number) => {
     const [h, m] = start.split(':').map(Number);
@@ -138,16 +167,20 @@ export function AdminManualReservation() {
           <div className={styles.slotsSection}>
             <label>Dostępne godziny</label>
             <div className={styles.slotsGrid}>
-              {TIME_SLOTS.map(time => (
-                <button
-                  key={time}
-                  type="button"
-                  className={`${styles.slotBtn} ${startTime === time ? styles.slotActive : ''}`}
-                  onClick={() => setStartTime(time)}
-                >
-                  {time}
-                </button>
-              ))}
+              {TIME_SLOTS.map(time => {
+                const isReserved = reservedSlots.has(time);
+                return (
+                  <button
+                    key={time}
+                    type="button"
+                    className={`${styles.slotBtn} ${startTime === time ? styles.slotActive : ''} ${isReserved ? styles.slotReserved : ''}`}
+                    onClick={() => !isReserved && setStartTime(time)}
+                    disabled={isReserved}
+                  >
+                    {time}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
