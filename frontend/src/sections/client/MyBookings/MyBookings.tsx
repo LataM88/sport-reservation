@@ -34,15 +34,25 @@ const MyBookings = () => {
     }));
   }, [reservations, facilities]);
 
-  const upcoming = useMemo(() => enriched.filter(isUpcoming), [enriched]);
+  const upcoming = useMemo(
+    () =>
+      enriched
+        .filter(isUpcoming)
+        .sort(
+          (a, b) =>
+            new Date(`${b.reservation_date}T${b.start_time}`).getTime() -
+            new Date(`${a.reservation_date}T${a.start_time}`).getTime()
+        ),
+    [enriched]
+  );
 
   const recentHistory = useMemo(() => {
     return enriched
       .filter((r) => !isUpcoming(r))
       .sort(
         (a, b) =>
-          new Date(b.reservation_date).getTime() -
-          new Date(a.reservation_date).getTime()
+          new Date(`${b.reservation_date}T${b.start_time}`).getTime() -
+          new Date(`${a.reservation_date}T${a.start_time}`).getTime()
       )
       .slice(0, HISTORY_LIMIT);
   }, [enriched]);

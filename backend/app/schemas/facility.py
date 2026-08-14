@@ -24,3 +24,13 @@ class FacilityResponse(BaseModel):
     is_active: bool
 
     model_config = {"from_attributes": True}
+
+
+class FacilityUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    opening_time: Optional[time] = None
+    closing_time: Optional[time] = None
+    base_price: Optional[Decimal] = None
+    is_active: Optional[bool] = None

@@ -49,6 +49,17 @@ def get_current_user(
     return auth_service.get_user(db=db, user_id=user_id)
 
 
+def get_current_admin(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Brak uprawnień admina",
+        )
+    return current_user
+
+
 @router.post("/register", response_model=MessageResponse)
 def register(user: RegisterRequest, db: Session = Depends(get_db)):
     return auth_service.register_user(db=db, user=user)

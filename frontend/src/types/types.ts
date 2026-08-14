@@ -30,6 +30,7 @@ export type User = {
   email: string;
   email_notifications: boolean;
   avatar_url?: string;
+  role: 'user' | 'admin';
   created_at: string;
 };
 
@@ -47,25 +48,44 @@ export type Facility = {
   is_active: boolean;
 };
 
-export type Reservations = {
+export interface Reservations {
   id: string;
-  user_id: string;
   facility_id: string;
   reservation_date: string;
   start_time: string;
   end_time: string;
-  total_price: number;
   status: string;
-  created_at: string;
-};
+  total_price: number;
+}
 
-export type ReservationCreate = {
+export interface AdminReservation extends Reservations {
+  user: User | null;
+  guest_name?: string;
+  guest_phone?: string;
+  created_at: string;
+}
+
+export interface ReservationCreate {
   facility_id: string;
   reservation_date: string;
   start_time: string;
   end_time: string;
-  total_price: number;
-};
+}
+
+export interface ManualReservationCreate extends ReservationCreate {
+  guest_name: string;
+  guest_phone: string;
+}
+
+export interface FacilityUpdate {
+  name?: string;
+  description?: string;
+  image_url?: string;
+  opening_time?: string;
+  closing_time?: string;
+  base_price?: number;
+  is_active?: boolean;
+}
 
 export type ProfileDataChangeRequest = {
   phoneNumber: string;

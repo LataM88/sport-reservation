@@ -16,6 +16,7 @@ interface AuthLayoutProps {
   forgotPasswordLabel?: string;
   forgotPasswordTo?: string;
   rootError?: string;
+  image?: string;
 }
 
 export function AuthLayout({
@@ -29,6 +30,7 @@ export function AuthLayout({
   forgotPasswordLabel,
   forgotPasswordTo,
   rootError,
+  image,
 }: AuthLayoutProps) {
   return (
     <div className={styles.container}>
@@ -36,7 +38,7 @@ export function AuthLayout({
         <Col xl={12} lg={12} sm={24} xs={24}>
           <div className={styles.leftImage}>
             <div className={styles.imgBg}></div>
-            <img src={registerImage} alt="boisko do koszykówki" />
+            <img src={image || registerImage} alt="boisko sportowe" />
           </div>
         </Col>
         <Col xl={12} lg={12} sm={24} xs={24}>

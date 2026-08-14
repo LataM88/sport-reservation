@@ -13,6 +13,7 @@ from app.routers.facilities import router as facilities_router
 from app.routers.recommendations import router as recommendations_router
 from app.routers.reservations import router as reservations_router
 from app.routers.users import router as users_router
+from app.routers.admin import router as admin_router
 from app.services.scheduler import send_upcoming_reservation_reminders
 
 scheduler = BackgroundScheduler()
@@ -59,6 +60,7 @@ app.include_router(facilities_router)
 app.include_router(recommendations_router)
 app.include_router(reservations_router)
 app.include_router(users_router)
+app.include_router(admin_router)
 
 
 @app.get("/")

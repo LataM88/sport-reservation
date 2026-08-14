@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 export function ForgotPassword() {
   const [step, setStep] = useState<1 | 2>(1);
   const [email, setEmail] = useState('');
+  const [cooldown, setCooldown] = useState(0);
   const navigate = useNavigate();
 
   const forgotPasswordMutation = useForgotPassword();
@@ -37,10 +38,22 @@ export function ForgotPassword() {
   } = useForm<ResetPasswordRequest>();
 
   const onForgotPassword = async (data: ForgotPasswordRequest) => {
+    if (cooldown > 0) return;
+
     try {
       await forgotPasswordMutation.mutateAsync(data);
       setEmail(data.email);
       setStep(2);
+
+      setCooldown(30);
+      const intervalId = setInterval(() => {
+        setCooldown((prev) => prev - 1);
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(intervalId);
+        setCooldown(0);
+      }, 30000);
     } catch (error) {
       const message =
         error instanceof ApiError ? error.detail : 'Wystąpił błąd';
@@ -99,10 +112,12 @@ export function ForgotPassword() {
               type="submit"
               size="lg"
               fullWidth
-              disabled={forgotPasswordMutation.isPending}
+              disabled={forgotPasswordMutation.isPending || cooldown > 0}
             >
               {forgotPasswordMutation.isPending
                 ? 'Wysyłanie...'
+                : cooldown > 0
+                ? `Wyślij kod (${cooldown}s)`
                 : 'Wyślij kod'}
             </Button>
           </div>

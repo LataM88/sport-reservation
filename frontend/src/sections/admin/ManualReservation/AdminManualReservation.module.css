@@ -1,0 +1,245 @@
+.container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stepCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(162, 255, 0, 0.4);
+  color: #5b8c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+  font-family: var(--heading);
+}
+
+.clientInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup label {
+  font-size: 12px;
+  color: var(--grey);
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fdfdfd;
+  color: var(--black);
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--black);
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.facilitySelect label, .dateSelect label, .slotsSection label, .durationSelect label, .priceSection label {
+  display: block;
+  font-size: 13px;
+  color: var(--grey);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.facilityCard {
+  background: rgba(162, 255, 0, 0.3);
+  border: 1px solid #90e600;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.facilityType {
+  font-size: 10px;
+  font-weight: 700;
+  color: #5b8c00;
+  letter-spacing: 0.5px;
+}
+
+.facilityName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.slotsSection {
+  margin-bottom: 32px;
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.slotBtn {
+  padding: 12px;
+  border: 1px solid var(--gray-300);
+  background: #fdfdfd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.slotBtn:hover {
+  border-color: var(--black);
+}
+
+.slotActive {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.durationControl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fdfdfd;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.durBtn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--black);
+}
+
+.durBtn:hover {
+  background: #e4e4e4;
+}
+
+.durValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.priceBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fdfdfd;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.priceValue {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.priceBase {
+  font-size: 12px;
+  color: var(--grey);
+  font-style: italic;
+}
+
+.footer {
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .clientInputs, .topRow, .bottomRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .slotsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .slotsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .inputGroup {
+    flex-direction: column;
+  }
+}
