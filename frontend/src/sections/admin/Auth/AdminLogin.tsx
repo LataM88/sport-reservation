@@ -1,16 +1,15 @@
-import type { LoginRequest } from '../../types/types';
+import type { LoginRequest } from '../../../types/types';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../../hooks/useLogin';
-import { useAuth } from '../../context/AuthContext';
-import { ApiError } from '../../api/apiClient';
-import AuthLayout from '../../components/AuthLayout/AuthLayout';
-import FormInput from '../../components/FormInput/FormInput';
-import Button from '../../components/Button/Button';
+import { useLogin } from '../../../hooks/useLogin';
+import { useAuth } from '../../../context/AuthContext';
+import { ApiError } from '../../../api/apiClient';
+import AuthLayout from '../../../components/AuthLayout/AuthLayout';
+import FormInput from '../../../components/FormInput/FormInput';
+import Button from '../../../components/Button/Button';
+import adminImage from '../../../images/sigin/adminImage.png';
 
-import { message } from 'antd';
-
-export function Login() {
+export function AdminLogin() {
   const navigate = useNavigate();
   const loginMutation = useLogin();
   const { login } = useAuth();
@@ -29,21 +28,16 @@ export function Login() {
     try {
       const result = await loginMutation.mutateAsync(data);
 
-      if (result.role === 'admin') {
+      if (result.role !== 'admin') {
         setError('root', {
-          message: 'To konto posiada uprawnienia gospodarza. Zaloguj się przez panel gospodarza.',
+          message: 'To konto nie posiada uprawnień administratora',
         });
         return;
       }
 
       login(result.token, result.user_id, result.role, !!data.remember);
-      navigate('/dashboard');
+      navigate('/admin/dashboard');
     } catch (error) {
-      if (error instanceof ApiError && error.status === 403) {
-        message.warning('Konto jest nieaktywne. Przekierowujemy do weryfikacji e-mail.');
-        navigate('/register', { state: { email: data.email } });
-        return;
-      }
       const messageText =
         error instanceof ApiError
           ? error.detail
@@ -54,19 +48,17 @@ export function Login() {
 
   return (
     <AuthLayout
-      titleHighlight="Zaloguj się"
+      titleHighlight="Panel Gospodarza"
       titleRest={
         <>
-          i wybierz <br />
-          swoje miejsce treningu
+          — zaloguj się <br />
+          do swojego obiektu
         </>
       }
-      switchText="Nie masz konta?"
-      switchLabel="Zarejestruj się"
-      switchTo="/register"
-      forgotPasswordText="Nie pamiętasz hasła?"
-      forgotPasswordLabel="Zresetuj hasło"
-      forgotPasswordTo="/forgot-password"
+      switchText="Jesteś użytkownikiem?"
+      switchLabel="Zaloguj się tutaj"
+      switchTo="/login"
+      image={adminImage}
     >
       <form noValidate onSubmit={handleSubmit(handleLogin)}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -91,7 +83,9 @@ export function Login() {
             })}
           />
           {errors.root && (
-            <span style={{ color: 'red', fontSize: '13px', marginTop: '-12px' }}>
+            <span
+              style={{ color: 'red', fontSize: '13px', marginTop: '-12px' }}
+            >
               {errors.root.message}
             </span>
           )}
@@ -114,4 +108,4 @@ export function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

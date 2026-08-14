@@ -95,7 +95,9 @@ export function Home() {
                 </Paragraph>
               </div>
               <div className={styles.cardButton}>
-                <button className={styles.buttonCard}>3 Obiekty</button>
+                <Link to="/dashboard">
+                  <button className={styles.buttonCard}>3 Obiekty</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -114,7 +116,9 @@ export function Home() {
                   </Paragraph>
                 </div>
                 <div className={styles.cardButton}>
-                  <button className={styles.buttonCard}>4 Obiekty</button>
+                  <Link to="/dashboard">
+                    <button className={styles.buttonCard}>4 Obiekty</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -123,11 +127,16 @@ export function Home() {
                 <div className={styles.cardInfo}>
                   <div className={styles.cardText}>
                     <Title className={styles.cardTitle} level={3}>
-                      Strefy aktywnego wypoczynku
+                      Sporty rakietowe
                     </Title>
+                    <Paragraph className={styles.cardPar}>
+                      Tenis, badminton, padel
+                    </Paragraph>
                   </div>
                   <div className={styles.cardButton}>
-                    <button className={styles.buttonCard}>4 Obiekty</button>
+                    <Link to="/dashboard">
+                      <button className={styles.buttonCard}>4 Obiekty</button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -142,7 +151,9 @@ export function Home() {
                     </Paragraph>
                   </div>
                   <div className={styles.cardButton}>
-                    <button className={styles.buttonCard}>5 Obiektów</button>
+                    <Link to="/dashboard">
+                      <button className={styles.buttonCard}>4 Obiektów</button>
+                    </Link>
                   </div>
                 </div>
               </div>

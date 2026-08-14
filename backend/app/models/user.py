@@ -37,6 +37,7 @@ class User(Base):
     verification_code_expires_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    role: Mapped[str] = mapped_column(String(20), nullable=False, default="user")
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )

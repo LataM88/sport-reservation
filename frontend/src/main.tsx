@@ -14,6 +14,13 @@ import MyBookings from './sections/client/MyBookings';
 import Profile from './sections/client/Profile/Profile';
 import AiReservations from './sections/client/Ai/AiReservations';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { AdminProtectedRoute } from './components/AdminProtectedRoute';
+import { AdminLogin } from './sections/admin/Auth/AdminLogin';
+import { AdminLayout } from './sections/admin/Layout/AdminLayout';
+import { AdminRequests } from './sections/admin/Requests/AdminRequests';
+import { AdminFacilitySettings } from './sections/admin/Settings/AdminFacilitySettings';
+import { AdminUsers } from './sections/admin/Users/AdminUsers';
+import { AdminManualReservation } from './sections/admin/ManualReservation/AdminManualReservation';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,6 +54,24 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <MainDashboard />,
+      },
+      {
+        path: '/admin-login',
+        element: <AdminLogin />,
+      },
+      {
+        path: '/admin/dashboard',
+        element: (
+          <AdminProtectedRoute>
+            <AdminLayout />
+          </AdminProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <AdminRequests /> },
+          { path: 'settings', element: <AdminFacilitySettings /> },
+          { path: 'users', element: <AdminUsers /> },
+          { path: 'manual-reservation', element: <AdminManualReservation /> },
+        ],
       },
       {
         path: '/my-bookings',

@@ -2,7 +2,11 @@ import { useState } from 'react';
 import type { RegisterRequest } from '../../types/types';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useRegister, useVerifyEmail, useResendActivationCode } from '../../hooks/useRegister';
+import {
+  useRegister,
+  useVerifyEmail,
+  useResendActivationCode,
+} from '../../hooks/useRegister';
 import { useAuth } from '../../context/AuthContext';
 import { ApiError } from '../../api/apiClient';
 import AuthLayout from '../../components/AuthLayout/AuthLayout';
@@ -62,7 +66,7 @@ export function Register() {
         code: verificationCode,
       });
       message.success('Konto zostało pomyślnie aktywowane!');
-      login(result.token, result.user_id, true);
+      login(result.token, result.user_id, result.role, true);
       navigate('/');
     } catch (error) {
       const msg =
@@ -103,17 +107,34 @@ export function Register() {
         switchTo="/login"
       >
         <form noValidate onSubmit={handleVerify}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
-            <span style={{ textAlign: 'center', color: '#555', fontSize: '14px', lineHeight: '1.5' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px',
+              alignItems: 'center',
+            }}
+          >
+            <span
+              style={{
+                textAlign: 'center',
+                color: '#555',
+                fontSize: '14px',
+                lineHeight: '1.5',
+              }}
+            >
               Wysłaliśmy 6-cyfrowy kod aktywacyjny na adres: <br />
-              <strong>{registeredEmail}</strong>. Wprowadź go poniżej, aby aktywować konto.
+              <strong>{registeredEmail}</strong>. Wprowadź go poniżej, aby
+              aktywować konto.
             </span>
             <input
               type="text"
               maxLength={6}
               placeholder="000000"
               value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))}
+              onChange={(e) =>
+                setVerificationCode(e.target.value.replace(/\D/g, ''))
+              }
               style={{
                 width: '220px',
                 height: '56px',
@@ -128,12 +149,14 @@ export function Register() {
                 background: '#fafafa',
                 color: '#000',
                 boxSizing: 'border-box',
-                paddingLeft: '10px'
+                paddingLeft: '10px',
               }}
               autoFocus
             />
             {errors.root && (
-              <span style={{ color: 'red', fontSize: '13px', textAlign: 'center' }}>
+              <span
+                style={{ color: 'red', fontSize: '13px', textAlign: 'center' }}
+              >
                 {errors.root.message}
               </span>
             )}
@@ -143,7 +166,9 @@ export function Register() {
               fullWidth
               disabled={verifyEmailMutation.isPending}
             >
-              {verifyEmailMutation.isPending ? 'Weryfikacja...' : 'Aktywuj konto'}
+              {verifyEmailMutation.isPending
+                ? 'Weryfikacja...'
+                : 'Aktywuj konto'}
             </Button>
             <Button
               type="button"
@@ -153,7 +178,9 @@ export function Register() {
               onClick={handleResend}
               disabled={resendMutation.isPending}
             >
-              {resendMutation.isPending ? 'Wysyłanie...' : 'Wyślij kod ponownie'}
+              {resendMutation.isPending
+                ? 'Wysyłanie...'
+                : 'Wyślij kod ponownie'}
             </Button>
           </div>
         </form>
@@ -221,7 +248,8 @@ export function Register() {
               },
               pattern: {
                 value: /^[0-9]+$/,
-                message: 'Numer telefonu musi się składać tylko z cyfr',
+                message:
+                  'Numer telefonu musi się składać tylko z cyfr, bez białych znaków',
               },
             })}
           />
@@ -255,7 +283,9 @@ export function Register() {
             })}
           />
           {errors.root && (
-            <span style={{ color: 'red', fontSize: '13px', marginTop: '-12px' }}>
+            <span
+              style={{ color: 'red', fontSize: '13px', marginTop: '-12px' }}
+            >
               {errors.root.message}
             </span>
           )}

@@ -220,8 +220,25 @@ def send_reservation_reminder_email(
 
 
 def _build_change_confirmation_email_html(
-    code: str, title: str, description: str, instruction: str
+    code: str, title: str, description: str, instruction: str, code_label: str = "Twój kod potwierdzenia", show_expiry: bool = True
 ) -> str:
+    expiry_html = ""
+    if show_expiry:
+        expiry_html = """
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td style="background-color:#125050;border-radius:6px;
+                                                   padding:14px 20px;">
+                                            <p style="margin:0;font-size:13px;color:#00e5ff;font-weight:500;">
+                                                Kod jest ważny przez
+                                                <strong style="color:#ffffff;">15 minut</strong>
+                                                od momentu wysłania tej wiadomości.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+        """
+
     return f"""
     <!DOCTYPE html>
     <html lang="pl">
@@ -278,7 +295,7 @@ def _build_change_confirmation_email_html(
                                                         <p style="margin:0 0 4px;font-size:11px;
                                                                   letter-spacing:2px;text-transform:uppercase;
                                                                   color:#464646;font-weight:500;">
-                                                            Twój kod potwierdzenia
+                                                            {code_label}
                                                         </p>
                                                         <span style="font-family:'Courier New',Consolas,monospace;
                                                                      font-size:42px;font-weight:700;
@@ -292,18 +309,7 @@ def _build_change_confirmation_email_html(
                                         </td>
                                     </tr>
                                 </table>
-                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                    <tr>
-                                        <td style="background-color:#125050;border-radius:6px;
-                                                   padding:14px 20px;">
-                                            <p style="margin:0;font-size:13px;color:#00e5ff;font-weight:500;">
-                                                Kod jest ważny przez
-                                                <strong style="color:#ffffff;">15 minut</strong>
-                                                od momentu wysłania tej wiadomości.
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </table>
+                                {expiry_html}
                             </td>
                         </tr>
                         <tr>
@@ -455,4 +461,48 @@ def send_activation_code_email(to_email: str, code: str) -> None:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Nie udało się wysłać emaila: {str(e)}",
         )
+
+
+def send_reservation_accepted_email(to_email: str, facility_name: str, reservation_date: str, start_time: str) -> None:
+    if not resend.api_key:
+        return
+
+    try:
+        resend.Emails.send({
+            "from": FROM_EMAIL,
+            "to": [to_email],
+            "subject": f"Rezerwacja potwierdzona – {facility_name}",
+            "html": _build_change_confirmation_email_html(
+                code="POTWIERDZONO",
+                title="Rezerwacja zaakceptowana",
+                description=f"Twoja rezerwacja w <b>{facility_name}</b> na dzień {reservation_date} o godz. {start_time} została zaakceptowana przez gospodarza.",
+                instruction="Do zobaczenia na miejscu!",
+                code_label="Status rezerwacji",
+                show_expiry=False,
+            ),
+        })
+    except Exception:
+        pass
+
+
+def send_reservation_rejected_email(to_email: str, facility_name: str, reservation_date: str, start_time: str) -> None:
+    if not resend.api_key:
+        return
+
+    try:
+        resend.Emails.send({
+            "from": FROM_EMAIL,
+            "to": [to_email],
+            "subject": f"Rezerwacja odrzucona – {facility_name}",
+            "html": _build_change_confirmation_email_html(
+                code="ODRZUCONO",
+                title="Rezerwacja odrzucona",
+                description=f"Przykro nam, ale Twoja rezerwacja w <b>{facility_name}</b> na dzień {reservation_date} o godz. {start_time} została odrzucona przez gospodarza.",
+                instruction="Spróbuj wybrać inny termin lub skontaktuj się z obsługą obiektu.",
+                code_label="Status rezerwacji",
+                show_expiry=False,
+            ),
+        })
+    except Exception:
+        pass
 

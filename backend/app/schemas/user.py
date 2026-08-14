@@ -19,6 +19,7 @@ class LoginRequest(BaseModel):
 class TokenResponse(BaseModel):
     token: str
     user_id: str
+    role: str
 
 
 class MessageResponse(BaseModel):
@@ -40,6 +41,7 @@ class UserResponse(BaseModel):
     email: EmailStr
     email_notifications: bool = False
     avatar_url: Optional[str] = None
+    role: str = "user"
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)

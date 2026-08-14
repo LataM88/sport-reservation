@@ -2,8 +2,8 @@ import uuid
 from datetime import datetime, date, time
 from decimal import Decimal
 
-from sqlalchemy import String, Date, Time, Numeric, DateTime, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Date, Time, Numeric, DateTime, ForeignKey, Index
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 
@@ -12,7 +12,14 @@ class Reservation(Base):
     __tablename__ = "reservations"
 
     __table_args__ = (
-        UniqueConstraint("facility_id", "reservation_date", "start_time", name="no_overlap"),
+        Index(
+            "no_overlap",
+            "facility_id",
+            "reservation_date",
+            "start_time",
+            unique=True,
+            postgresql_where="status != 'cancelled'",
+        ),
     )
 
     id: Mapped[str] = mapped_column(
@@ -32,9 +39,13 @@ class Reservation(Base):
         String(20), nullable=False, default="pending"
     )
     reminder_sent: Mapped[bool] = mapped_column(default=False, nullable=False)
+    guest_name: Mapped[str] = mapped_column(String(255), nullable=True)
+    guest_phone: Mapped[str] = mapped_column(String(50), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow, nullable=False
     )
+
+    user = relationship("User", backref="reservations")
 
     def __repr__(self) -> str:
         return f"<Reservation {self.id} | {self.facility_id} @ {self.reservation_date} {self.start_time}>"

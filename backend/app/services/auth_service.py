@@ -68,10 +68,10 @@ def login_user(db: Session, user: LoginRequest) -> dict:
 
     expires_delta = timedelta(days=30) if user.remember else None
     token = create_access_token(
-        data={"user_id": found_user.id}, expires_delta=expires_delta
+        data={"user_id": found_user.id, "role": found_user.role}, expires_delta=expires_delta
     )
 
-    return {"token": token, "user_id": found_user.id}
+    return {"token": token, "user_id": found_user.id, "role": found_user.role}
 
 def forgot_password(db: Session, user: ForgotPasswordRequest) -> dict:
     found_user = db.query(User).filter(User.email == user.email).first()
@@ -160,8 +160,8 @@ def verify_email(db: Session, data: VerifyEmailRequest) -> dict:
     found_user.verification_code_expires_at = None
     db.commit()
 
-    token = create_access_token(data={"user_id": found_user.id})
-    return {"token": token, "user_id": found_user.id}
+    token = create_access_token(data={"user_id": found_user.id, "role": found_user.role})
+    return {"token": token, "user_id": found_user.id, "role": found_user.role}
 
 
 def resend_activation_code(db: Session, data: ResendCodeRequest) -> dict:

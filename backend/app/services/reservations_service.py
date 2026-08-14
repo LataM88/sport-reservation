@@ -98,10 +98,10 @@ def get_reservation_by_id(db: Session, reservation_id: str) -> Reservation:
     return reservation
 
 
-def cancel_reservation(db: Session, reservation_id: str, user_id: str) -> Reservation:
+def cancel_reservation(db: Session, reservation_id: str, user_id: str, is_admin: bool = False) -> Reservation:
     reservation = get_reservation_by_id(db, reservation_id)
 
-    if reservation.user_id != user_id:
+    if not is_admin and reservation.user_id != user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Nie masz uprawnień do anulowania tej rezerwacji",
@@ -112,6 +112,16 @@ def cancel_reservation(db: Session, reservation_id: str, user_id: str) -> Reserv
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Rezerwacja jest już anulowana",
         )
+
+    if not is_admin:
+        start_dt = datetime.combine(reservation.reservation_date, reservation.start_time)
+        now = datetime.now()
+        hours_left = (start_dt - now).total_seconds() / 3600
+        if hours_left < 12:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Nie można anulować rezerwacji na mniej niż 12 godzin przed jej rozpoczęciem",
+            )
 
     reservation.status = "cancelled"
     db.commit()

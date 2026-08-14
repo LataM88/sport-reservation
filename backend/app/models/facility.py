@@ -3,7 +3,7 @@ from datetime import datetime, time
 from decimal import Decimal
 from typing import Optional
 
-from sqlalchemy import String, Text, Time, Integer, Boolean, Numeric, DateTime
+from sqlalchemy import String, Text, Time, Integer, Boolean, Numeric, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -14,6 +14,9 @@ class Facility(Base):
 
     id: Mapped[str] = mapped_column(
         String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    owner_id: Mapped[Optional[str]] = mapped_column(
+        String(36), ForeignKey("users.id"), nullable=True
     )
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     category: Mapped[str] = mapped_column(String(50), nullable=False)

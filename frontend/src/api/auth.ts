@@ -9,6 +9,7 @@ import type {
 export interface TokenResponse {
   token: string;
   user_id: string;
+  role: string;
 }
 
 export function registerUser(data: RegisterRequest): Promise<{ message: string }> {
