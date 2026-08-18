@@ -4,7 +4,10 @@ import type { AiMessage } from '../types/types';
 const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL as string;
 
 const getNow = () =>
-  new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+  new Date().toLocaleTimeString('pl-PL', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
 const extractText = (data: unknown): string => {
   if (typeof data === 'string') return data;
@@ -49,7 +52,10 @@ const useAiChat = ({ token, userId }: UseAiChatOptions) => {
 
   useEffect(() => {
     if (messages.length > 0 || isLoading) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      messagesEndRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
     }
   }, [messages, isLoading]);
 
@@ -107,7 +113,7 @@ const useAiChat = ({ token, userId }: UseAiChatOptions) => {
         setIsLoading(false);
       }
     },
-    [input, isLoading, token, userId],
+    [input, isLoading, token, userId]
   );
 
   return {
