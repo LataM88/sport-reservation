@@ -25,6 +25,33 @@ const Navbar = () => {
 
   const closeMenu = () => setIsOpen(false);
 
+  const smoothScrollTo = (targetY: number, duration: number = 600) => {
+    const startY =
+      window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    const distance = targetY - startY;
+    if (Math.abs(distance) < 5) return;
+    let startTime: number | null = null;
+
+    const step = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      // easeInOutCubic for a smooth acceleration & deceleration
+      const ease =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+      window.scrollTo(0, startY + distance * ease);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
   const scrollToSection = (sectionId: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     closeMenu();
@@ -33,16 +60,19 @@ const Navbar = () => {
       const el = document.getElementById(sectionId);
       if (el) {
         const navbarHeight = 68;
-        const top =
-          el.getBoundingClientRect().top + window.scrollY - navbarHeight - 16;
-        window.scrollTo({ top, behavior: 'smooth' });
+        const targetY =
+          el.getBoundingClientRect().top +
+          (window.scrollY || window.pageYOffset) -
+          navbarHeight -
+          16;
+        smoothScrollTo(Math.max(0, targetY), 650);
         window.history.pushState({}, '', `/#${sectionId}`);
       }
     };
 
     if (location.pathname !== '/') {
       navigate('/');
-      setTimeout(doScroll, 150);
+      setTimeout(doScroll, 100);
     } else {
       doScroll();
     }
@@ -58,9 +88,21 @@ const Navbar = () => {
         </Link>
 
         <div className={styles.links}>
-          <Link to="/" className={styles.link} onClick={closeMenu}>
+          <a
+            href="/"
+            className={styles.link}
+            onClick={(e) => {
+              e.preventDefault();
+              closeMenu();
+              if (location.pathname === '/') {
+                smoothScrollTo(0, 500);
+              } else {
+                navigate('/');
+              }
+            }}
+          >
             Główna
-          </Link>
+          </a>
           <a
             href="#categories"
             className={styles.link}
@@ -116,9 +158,21 @@ const Navbar = () => {
       </div>
 
       <div className={`${styles.drawer} ${isOpen ? styles.drawerOpen : ''}`}>
-        <Link to="/" className={styles.drawerLink} onClick={closeMenu}>
+        <a
+          href="/"
+          className={styles.drawerLink}
+          onClick={(e) => {
+            e.preventDefault();
+            closeMenu();
+            if (location.pathname === '/') {
+              smoothScrollTo(0, 500);
+            } else {
+              navigate('/');
+            }
+          }}
+        >
           Główna
-        </Link>
+        </a>
         <a
           href="#categories"
           className={styles.drawerLink}

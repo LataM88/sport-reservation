@@ -46,8 +46,13 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
+  overflow-x: clip;
 }
 
 h1,
