@@ -8,7 +8,6 @@
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 .heroRow {
@@ -135,6 +134,7 @@
   gap: 16px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   z-index: 10;
+  animation: floatBounce 3s ease-in-out infinite;
 }
 
 .iconCircle {
@@ -172,7 +172,7 @@
   height: 764px;
   background-image:
     linear-gradient(rgba(18, 80, 80, 0.56), rgba(18, 80, 80, 0.56)),
-    url('../images/landing/arena_jaskolka.png');
+    url('../images/landing/hala.jpg');
   border-radius: 16px;
   padding: 16px;
   background-size: cover;
@@ -292,6 +292,7 @@
 .categoriesHeader {
   margin-top: 64px;
   margin-bottom: 32px;
+  scroll-margin-top: 90px;
 }
 
 .categoriesSubtitle {
@@ -300,17 +301,47 @@
   margin-top: 8px !important;
 }
 
-.iconNumber {
-  width: 65px;
-  height: 65px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: black;
+.nowrapText {
+  white-space: nowrap;
 }
+
+/* ============================
+   Floating card bounce
+   ============================ */
+
+@keyframes floatBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================
+   Category cards – hover
+   ============================ */
+
+.bgImage,
+.bgImageRight,
+.bgImageRightSmall,
+.bgImageRightSmallGym {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bgImage:hover,
+.bgImageRight:hover,
+.bgImageRightSmall:hover,
+.bgImageRightSmallGym:hover {
+  scale: 1.05;
+  transition: all 0.3s ease;
+}
+
+/* ============================
+   How-it-works cards – hover
+   ============================ */
 
 .howIcons {
   display: flex;
@@ -330,6 +361,38 @@
   border: 4px solid var(--primary);
   height: 100%;
   box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.howItWorks:hover {
+  scale: 1.05;
+  transition: all 0.3s ease;
+}
+
+.iconNumber {
+  width: 65px;
+  height: 65px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: black;
+}
+
+/* ============================
+   Button card hover
+   ============================ */
+
+.buttonCard {
+  transition: all 0.3s ease;
+}
+
+.buttonCard:hover {
+  scale: 1.1;
+  transition: all 0.3s ease;
 }
 
 .howText {
@@ -337,8 +400,24 @@
   font-size: 16px !important;
 }
 
-.nowrapText {
-  white-space: nowrap;
+/* ============================
+   Reduced motion
+   ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingCard {
+    animation: none;
+  }
+
+  .bgImage,
+  .bgImageRight,
+  .bgImageRightSmall,
+  .bgImageRightSmallGym,
+  .howItWorks,
+  .buttonCard,
+  .button {
+    transition: none;
+  }
 }
 
 @media (max-width: 768px) {
