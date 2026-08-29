@@ -159,7 +159,7 @@ export function ForgotPassword() {
               {resetPasswordMutation.isPending ? 'Zmienianie...' : 'Zmień hasło'}
             </Button>
             <Button
-              variant="text"
+              variant="outline"
               onClick={() => setStep(1)}
               disabled={resetPasswordMutation.isPending}
             >
