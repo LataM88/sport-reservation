@@ -13,10 +13,16 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 const { Title, Paragraph } = Typography;
 
 export function Home() {
-  const categoriesHeader = useScrollReveal<HTMLDivElement>({ type: 'fade', duration: 600 });
+  const categoriesHeader = useScrollReveal<HTMLDivElement>({
+    type: 'fade',
+    duration: 600,
+  });
   const categoryLeft = useScrollReveal<HTMLDivElement>({ delay: 0 });
   const categoryRight = useScrollReveal<HTMLDivElement>({ delay: 200 });
-  const howHeader = useScrollReveal<HTMLDivElement>({ type: 'fade', duration: 600 });
+  const howHeader = useScrollReveal<HTMLDivElement>({
+    type: 'fade',
+    duration: 600,
+  });
   const howStep1 = useScrollReveal<HTMLDivElement>({ delay: 0 });
   const howStep2 = useScrollReveal<HTMLDivElement>({ delay: 150 });
   const howStep3 = useScrollReveal<HTMLDivElement>({ delay: 300 });
@@ -48,7 +54,7 @@ export function Home() {
               </Title>
               <Paragraph className={styles.textSmall}>
                 Dla zalogowanych użytkowników rekomendacje i rezerwacje{' '}
-                <span className={styles.textSmallColor}>AI </span>
+                <span className={styles.textSmallColor}>AI. </span>
                 <br />
                 Zarezerwuj interesujący Cię obiekt w mgnieniu oka, <br />
                 Przeglądaj jako gość i sprawdź aktualną{' '}
@@ -171,7 +177,9 @@ export function Home() {
                     </div>
                     <div className={styles.cardButton}>
                       <Link to="/dashboard">
-                        <button className={styles.buttonCard}>4 Obiektów</button>
+                        <button className={styles.buttonCard}>
+                          4 Obiektów
+                        </button>
                       </Link>
                     </div>
                   </div>
@@ -225,7 +233,8 @@ export function Home() {
               </div>
               <div className={styles.howTextMain}>
                 <Paragraph className={styles.howText}>
-                  Wybierz kategorie a w niej, <br /> obiekt sportowy który <br />
+                  Wybierz kategorie a w niej, <br /> obiekt sportowy który{' '}
+                  <br />
                   chcesz zarezerwowac
                 </Paragraph>
               </div>
