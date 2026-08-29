@@ -33,7 +33,7 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       <Title className={styles.greeting} level={3}>
-        Witaj {user.name}!
+        Witaj {user?.name}!
       </Title>
       <div className={styles.layout}>
         <Link to="/dashboard">

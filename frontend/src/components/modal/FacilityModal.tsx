@@ -85,7 +85,6 @@ const FacilityModal = ({ id, onClose }: FacilityModalProps) => {
       reservation_date: selectedDate.format('YYYY-MM-DD'),
       start_time: `${selectedSlot}:00`,
       end_time: endTime.format('HH:mm:ss'),
-      total_price: Number(facility.base_price ?? 0),
     };
 
     try {

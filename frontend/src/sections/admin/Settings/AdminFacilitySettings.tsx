@@ -69,6 +69,7 @@ export function AdminFacilitySettings() {
             <div className={styles.section}>
               <h3 className={styles.sectionTitle}>Cena za godzinę (PLN)</h3>
               <FormInput 
+                label="Cena za godzinę"
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}

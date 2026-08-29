@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, useMemo, CSSProperties } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
+import type { CSSProperties } from 'react';
 
 interface ScrollRevealOptions {
   threshold?: number;

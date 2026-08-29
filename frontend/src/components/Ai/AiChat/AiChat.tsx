@@ -17,8 +17,8 @@ interface AiChatProps {
   input: string;
   isLoading: boolean;
   error: string | null;
-  messagesEndRef: RefObject<HTMLDivElement>;
-  textAreaRef: RefObject<HTMLTextAreaElement>;
+  messagesEndRef: RefObject<HTMLDivElement | null>;
+  textAreaRef: RefObject<HTMLTextAreaElement | null>;
   onInputChange: (value: string) => void;
   onSend: () => void;
   onSuggestedClick: (question: string) => void;
