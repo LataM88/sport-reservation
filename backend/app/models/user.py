@@ -24,6 +24,7 @@ class User(Base):
         DateTime(timezone=True), nullable=True
     )
     email_notifications: Mapped[bool] = mapped_column(default=False, nullable=False)
+    email_reservation_updates: Mapped[bool] = mapped_column(default=True, nullable=False)
     pending_email: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     pending_phone_number: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     pending_hashed_password: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
