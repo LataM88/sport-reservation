@@ -148,16 +148,41 @@ const Profile = () => {
     }
   };
 
-  // Handle notification toggle
-  const onNotificationToggle = (checked: boolean) => {
+  // Handle reminder notification toggle
+  const onReminderToggle = (checked: boolean) => {
     updateNotifPrefs.mutate(
-      { email_notifications: checked },
+      {
+        email_notifications: checked,
+        email_reservation_updates: notifPrefs?.email_reservation_updates ?? true,
+      },
       {
         onSuccess: () => {
           message.success(
             checked
-              ? 'Powiadomienia e-mail zostały włączone'
-              : 'Powiadomienia e-mail zostały wyłączone',
+              ? 'Przypomnienia e-mail zostały włączone'
+              : 'Przypomnienia e-mail zostały wyłączone',
+          );
+        },
+        onError: () => {
+          message.error('Nie udało się zaktualizować preferencji');
+        },
+      },
+    );
+  };
+
+  // Handle reservation updates notification toggle
+  const onReservationUpdatesToggle = (checked: boolean) => {
+    updateNotifPrefs.mutate(
+      {
+        email_notifications: notifPrefs?.email_notifications ?? false,
+        email_reservation_updates: checked,
+      },
+      {
+        onSuccess: () => {
+          message.success(
+            checked
+              ? 'Powiadomienia o statusie rezerwacji zostały włączone'
+              : 'Powiadomienia o statusie rezerwacji zostały wyłączone',
           );
         },
         onError: () => {
@@ -420,7 +445,7 @@ const Profile = () => {
                 <div className={styles.notifiactionsGroup}>
                   <MailOutlined />
                   <div className={styles.aboutNotification}>
-                    <Title level={4}>Powiadomienia E-mail</Title>
+                    <Title level={4}>Przypomnienia</Title>
                     <Paragraph>
                       Otrzymuj przypomnienie o rezerwacji 2h przed jej
                       rozpoczęciem
@@ -430,7 +455,26 @@ const Profile = () => {
                     <input
                       type="checkbox"
                       checked={notifPrefs?.email_notifications ?? false}
-                      onChange={(e) => onNotificationToggle(e.target.checked)}
+                      onChange={(e) => onReminderToggle(e.target.checked)}
+                      disabled={updateNotifPrefs.isPending}
+                    />
+                    <span className={styles.slider}></span>
+                  </label>
+                </div>
+                <div className={styles.notifiactionsGroup}>
+                  <MailOutlined />
+                  <div className={styles.aboutNotification}>
+                    <Title level={4}>Status rezerwacji</Title>
+                    <Paragraph>
+                      Otrzymuj powiadomienia gdy rezerwacja zostanie
+                      zaakceptowana lub odrzucona
+                    </Paragraph>
+                  </div>
+                  <label className={styles.switch}>
+                    <input
+                      type="checkbox"
+                      checked={notifPrefs?.email_reservation_updates ?? true}
+                      onChange={(e) => onReservationUpdatesToggle(e.target.checked)}
                       disabled={updateNotifPrefs.isPending}
                     />
                     <span className={styles.slider}></span>

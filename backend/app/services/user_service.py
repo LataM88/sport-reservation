@@ -206,9 +206,16 @@ def update_notification_preferences(
     db: Session, current_user: User, data: NotificationPreferencesRequest
 ) -> dict:
     current_user.email_notifications = data.email_notifications
+    current_user.email_reservation_updates = data.email_reservation_updates
     db.commit()
-    return {"email_notifications": current_user.email_notifications}
+    return {
+        "email_notifications": current_user.email_notifications,
+        "email_reservation_updates": current_user.email_reservation_updates,
+    }
 
 
 def get_notification_preferences(current_user: User) -> dict:
-    return {"email_notifications": current_user.email_notifications}
+    return {
+        "email_notifications": current_user.email_notifications,
+        "email_reservation_updates": current_user.email_reservation_updates,
+    }

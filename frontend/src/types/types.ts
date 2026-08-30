@@ -29,6 +29,7 @@ export type User = {
   phoneNumber: string;
   email: string;
   email_notifications: boolean;
+  email_reservation_updates: boolean;
   avatar_url?: string;
   role: 'user' | 'admin';
   created_at: string;
@@ -104,6 +105,7 @@ export type ConfirmChangeRequest = {
 
 export type NotificationPreferences = {
   email_notifications: boolean;
+  email_reservation_updates: boolean;
 };
 
 // typy do rezerwacji z Ai
