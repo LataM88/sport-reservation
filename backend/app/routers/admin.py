@@ -118,7 +118,7 @@ def update_reservation_status(
     db.commit()
     db.refresh(reservation)
 
-    if reservation.user and reservation.user.email_notifications:
+    if reservation.user and reservation.user.email_reservation_updates:
         if data.status == "confirmed":
             send_reservation_accepted_email(
                 reservation.user.email, facility.name, str(reservation.reservation_date), str(reservation.start_time)

@@ -40,6 +40,7 @@ class UserResponse(BaseModel):
     phoneNumber: str = Field(alias="phoneNumber", validation_alias="phone_number")
     email: EmailStr
     email_notifications: bool = False
+    email_reservation_updates: bool = True
     avatar_url: Optional[str] = None
     role: str = "user"
     created_at: datetime
@@ -68,10 +69,12 @@ class ConfirmChangeRequest(BaseModel):
 
 class NotificationPreferencesRequest(BaseModel):
     email_notifications: bool
+    email_reservation_updates: bool
 
 
 class NotificationPreferencesResponse(BaseModel):
     email_notifications: bool
+    email_reservation_updates: bool
 
     model_config = ConfigDict(from_attributes=True)
 
