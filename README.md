@@ -42,25 +42,24 @@ A full-stack web application for browsing, booking, and managing sport facility 
 
 Modern landing page with scroll-reveal animations, facility categories, and a step-by-step reservation guide.
 
-<!-- ZAMIEŃ PONIŻSZY LINK NA WYGENEROWANY PRZEZ GITHUB PO PRZECIĄGNIĘCIU WIDEO -->
 
-https://github.com/user-attachments/assets/twój-unikalny-link-do-wideo-1
+[https://github.com/user-attachments/assets/twój-unikalny-link-do-wideo-1](https://github.com/user-attachments/assets/50e0cb12-d68d-48ab-b408-304ec4eadca8)
 
 ### Dashboard & Booking Flow
 
 Full authentication flow and the main booking dashboard with facility browsing, time-slot selection, and reservation management.
 
-<!-- ZAMIEŃ PONIŻSZY LINK NA WYGENEROWANY PRZEZ GITHUB PO PRZECIĄGNIĘCIU WIDEO -->
 
-https://github.com/user-attachments/assets/twój-unikalny-link-do-wideo-2
+[https://github.com/user-attachments/assets/twój-unikalny-link-do-wideo-2](https://github.com/user-attachments/assets/8700a91a-f925-49fc-8bb4-d0a2d6c86002)
+
+
 
 ### AI-Powered Reservations
 
 Conversational AI chatbot that helps users find and book facilities through natural language.
 
-<!-- ZAMIEŃ PONIŻSZY LINK NA WYGENEROWANY PRZEZ GITHUB PO PRZECIĄGNIĘCIU WIDEO -->
 
-https://github.com/user-attachments/assets/twój-unikalny-link-do-wideo-3
+[https://github.com/user-attachments/assets/twój-unikalny-link-do-wideo-3](https://github.com/user-attachments/assets/f1a959d7-0cb3-4b10-8244-fbf4a54b2f2a)
 
 ---
 
