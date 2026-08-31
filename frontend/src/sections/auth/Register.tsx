@@ -67,7 +67,7 @@ export function Register() {
       });
       message.success('Konto zostało pomyślnie aktywowane!');
       login(result.token, result.user_id, result.role, true);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       const msg =
         error instanceof ApiError
